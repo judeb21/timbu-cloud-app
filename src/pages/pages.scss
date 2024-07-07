@@ -139,7 +139,6 @@
         border-radius: 16px;
 
         & img {
-          height: 100%;
           width: 100%;
         }
       }
@@ -321,6 +320,134 @@
         width: 100%;
         color: #fdfefb;
       }
+    }
+  }
+
+  &--checkout {
+    position: relative;
+    display: flex;
+    gap: 24px;
+    margin-bottom: 80px;
+
+    &__contact {
+      flex: 0 0 606px;
+    }
+
+    &__order {
+      flex: 0 0 1;
+      box-shadow: 0 4px 8px 0 rgba(196, 196, 196, 0.25);
+      padding: 8px 30px 30px 30px;
+      border-radius: 16px;
+
+      & h4 {
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 27.24px;
+        color: $grey-color2;
+      }
+
+      &-details {
+        margin-top: 30px;
+
+        & .product--cart__heading {
+          &:not(:first-child) {
+            border-top: 1px solid #f0f0f0;
+            padding-top: 30px;
+          }
+        }
+      }
+
+      &-summary {
+        & h5 {
+          color: $text-color2;
+          font-size: 16px;
+          font-weight: 700;
+        }
+      }
+    }
+  }
+}
+
+.timbu {
+  &--order {
+    &__complete {
+      max-width: 529px;
+      margin: auto;
+      margin-top: 42px;
+      width: 100%;
+      margin-bottom: 100px;
+    }
+
+    &__confirm {
+      text-align: center;
+
+      & h4 {
+        margin-top: 10px;
+        font-size: 32px;
+        font-weight: 700;
+        line-height: 43.58px;
+        color: $text-color2;
+      }
+
+      & p {
+        font-size: 16px;
+        line-height: 21.79px;
+        font-weight: 400;
+        color: $text-color3;
+      }
+    }
+
+    &__details {
+      margin-top: 35px;
+    }
+
+    &__order,
+    &__delivery {
+      & h5 {
+        font-size: 14px;
+        color: $text-color2;
+        font-weight: 600;
+        line-height: 19.07px;
+        margin-bottom: 16px;
+      }
+
+      & p {
+        display: flex;
+        margin-bottom: 10px;
+        justify-content: space-between;
+
+        & span {
+          font-size: 14px;
+          font-weight: 400;
+          color: $grey-color2;
+          line-height: 19.07px;
+
+          &.timbu--order__order-ref {
+            text-align: left;
+          }
+        }
+      }
+    }
+
+    &__delivery {
+      & h5 {
+        margin-top: 30px;
+      }
+
+      &-address {
+        max-width: 261px;
+        width: 100%;
+      }
+    }
+
+    &__view {
+      margin-top: 35px;
+      text-align: center;
+      color: #4a90e2;
+      font-size: 16px;
+      line-height: 21.79px;
+      font-weight: 700;
+      cursor: pointer;
     }
   }
 }

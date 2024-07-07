@@ -95,7 +95,7 @@ function ProductCart() {
                       <div className="product--cart__variaties">
                         {/* quantity select */}
                         <div className="product--cart__quantity">
-                          <span>1</span>
+                          <span>2</span>
                           <img src={RightCaret} alt="right caret" />
                         </div>
                         {/* Color Select */}
