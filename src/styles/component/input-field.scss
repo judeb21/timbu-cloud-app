@@ -1,0 +1,115 @@
+@import "/src/styles/abstract/variables.scss";
+
+.form {
+  &-control {
+    margin-top: 10px;
+    width: 100%;
+    margin-bottom: 15px;
+
+    &-group {
+      display: flex;
+      gap: 16px;
+    }
+  }
+
+  &-field {
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &-label {
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: 400;
+    font-family: "Open Sans", sans-serif;
+    color: $text-color1;
+    margin-bottom: 5px;
+  }
+
+  &-input {
+    background: #f0f0f0;
+    border-radius: 8px;
+    height: 56px;
+    border: none;
+    color: #777777;
+    line-height: 24px;
+    font-size: 16px;
+    font-weight: 400;
+    font-family: "Open Sans", sans-serif;
+    padding: 16px;
+    width: 100%;
+
+    &::placeholder {
+      color: inherit;
+      line-height: inherit;
+      font-family: inherit;
+      font-size: inherit;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &-select {
+    background: #f0f0f0;
+    border-radius: 8px;
+    height: 56px;
+    border: none;
+    color: #777777;
+    line-height: 24px;
+    font-size: 16px;
+    font-weight: 400;
+    font-family: "Open Sans", sans-serif;
+    padding: 16px;
+    width: 100%;
+    
+    appearance: none;
+    background-repeat: no-repeat;
+    background-image: url('../../assets/icons/chevron-up.png');
+    background-position: right 0.7rem top 50%;
+    background-size: 24px auto;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+.payment--input {
+  appearance: none;
+  -webkit-appearance: none;
+  margin: 0;
+  font: inherit;
+  width: 18.5px;
+  height: 18.5px;
+  border: 1.5px solid #000000;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:before {
+    content: url('../../assets/icons/radio-checked.png');
+    width: 7.12px;
+    height: 4.75px;
+    transform: scale(0);
+    transition: 100ms transform ease-in-out;
+  }
+
+  &:checked {
+    border: 1.5px solid #039C03;
+
+    &:before {
+      transform: scale(0.5);
+      margin-left: -5px;
+      margin-top: -5px;
+    }
+  }
+
+  &:focus {
+    border: 1.5px solid #039C03;
+  }
+}

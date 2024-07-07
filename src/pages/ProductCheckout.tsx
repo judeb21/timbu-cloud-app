@@ -3,14 +3,16 @@ import CartImage1 from "../assets/products/CartProduct1.png";
 import CartImage2 from "../assets/products/CartProduct2.png";
 import DeleteIcon from "../assets/icons/cart-delete-icon.svg";
 import { useNavigate } from "react-router-dom";
+import "../styles/component/input-field.scss";
+import { Input } from "../components/ui/Input/Input";
 
 function ProductCheckout() {
   const navigate = useNavigate();
 
   const goToCompleteORder = () => {
     return navigate("/order-complete");
-  }
-  
+  };
+
   return (
     <>
       <div>
@@ -29,7 +31,133 @@ function ProductCheckout() {
 
             <div className="product--checkout">
               {/* contact */}
-              <div className="product--checkout__contact"></div>
+              <div className="product--checkout__contact">
+                <h5>Contact Information</h5>
+
+                <div className="form-control">
+                  <Input
+                    label="Email address"
+                    type="email"
+                    name="email"
+                    id="email"
+                    placeholder="Enter your email address"
+                    required={false}
+                    value=""
+                  />
+                </div>
+
+                {/* Shipment */}
+                <div className="product--checkout__shipment">
+                  <h5>Shipment Information</h5>
+
+                  <div>
+                    <div className="form-control-group">
+                      <div className="form-control">
+                        <Input
+                          label="First Name"
+                          type="text"
+                          name="fName"
+                          id="fName"
+                          placeholder="Enter your First Name"
+                          required={false}
+                          value=""
+                        />
+                      </div>
+
+                      <div className="form-control">
+                        <Input
+                          label="Last Name"
+                          type="text"
+                          name="lName"
+                          id="lName"
+                          placeholder="Enter your Last Name"
+                          required={false}
+                          value=""
+                        />
+                      </div>
+                    </div>
+
+                    <div className="form-control">
+                      <Input
+                        label="Address"
+                        type="text"
+                        name="address"
+                        id="address"
+                        placeholder="Enter your Address"
+                        required={false}
+                        value=""
+                      />
+                    </div>
+
+                    <div className="form-control-group">
+                      <div className="form-control">
+                        <div className="form-field">
+                          <label htmlFor="state" className="form-label">
+                            State
+                          </label>
+                          <select name="" id="" className="form-select">
+                            <option value="__Select state">Select State</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div className="form-control">
+                        <Input
+                          label="City"
+                          type="text"
+                          name="city"
+                          id="city"
+                          placeholder="Enter your city"
+                          required={false}
+                          value=""
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Payment */}
+                <div className="product--checkout__shipment">
+                  <h5>Payment Method</h5>
+
+                  <div className="product--payment">
+                    <div className="product--payment__options active">
+                      <label>
+                        <div>
+                          <input
+                            type="radio"
+                            id="paymentDelivery"
+                            className="payment--input"
+                            name="payment"
+                            checked
+                          />
+                        </div>
+                        <div>
+                          <p>Payment on delivery</p>
+                          <span>Make available the amount</span>
+                        </div>
+                      </label>
+                    </div>
+
+                    <div className="product--payment__options">
+                      <label>
+                        <div>
+                          <input
+                            type="radio"
+                            name="payment"
+                            className="payment--input"
+                            disabled
+                          />
+                        </div>
+                        <div>
+                          <p>Pay online</p>
+                          <span>One click pay stack payment</span>
+                        </div>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
               {/* Order details */}
               <div className="product--checkout__order">
@@ -98,7 +226,9 @@ function ProductCheckout() {
                 </div>
 
                 <div className="product--summary__button">
-                  <button onClick={() => goToCompleteORder()}>Confirm Payment</button>
+                  <button onClick={() => goToCompleteORder()}>
+                    Confirm Payment
+                  </button>
                 </div>
               </div>
             </div>
