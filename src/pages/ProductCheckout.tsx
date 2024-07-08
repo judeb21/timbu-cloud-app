@@ -1,25 +1,36 @@
 import LeftCaretIcon from "../assets/icons/left-caret-icon.svg";
-import CartImage1 from "../assets/products/CartProduct1.png";
-import CartImage2 from "../assets/products/CartProduct2.png";
 import DeleteIcon from "../assets/icons/cart-delete-icon.svg";
 import { useNavigate } from "react-router-dom";
 import "../styles/component/input-field.scss";
 import { Input } from "../components/ui/Input/Input";
 import PrimaryButton from "../components/ui/Button/PrimaryButton";
+import useCart from "../hooks/useCart";
+import { RecentProducts } from "../products";
 
 function ProductCheckout() {
+  const { dispatch, REDUCER_ACTIONS, cart } = useCart();
   const navigate = useNavigate();
 
   const goToCompleteORder = () => {
     return navigate("/order-complete");
   };
 
+  const goToHomePage = () => {
+    return navigate(`/`);
+  };
+
+  const onRemoveFromCart = (item: RecentProducts) =>
+    dispatch({
+      type: REDUCER_ACTIONS.REMOVE,
+      payload: item,
+    });
+
   return (
     <>
       <div>
         <div className="container">
           <div className="layout--content">
-            <div className="breadcrumbs">
+            <div className="breadcrumbs" onClick={goToHomePage}>
               <div className="breadcrumbs--category">
                 <div className="breadcrumbs--category__caret">
                   <img src={LeftCaretIcon} alt="left caret" />
@@ -130,7 +141,6 @@ function ProductCheckout() {
                             id="paymentDelivery"
                             className="payment--input"
                             name="payment"
-                            checked
                           />
                         </div>
                         <div>
@@ -147,7 +157,6 @@ function ProductCheckout() {
                             type="radio"
                             name="payment"
                             className="payment--input"
-                            disabled
                           />
                         </div>
                         <div>
@@ -164,37 +173,37 @@ function ProductCheckout() {
               <div className="product--checkout__order">
                 <h4>Order details</h4>
                 <div className="product--checkout__order-details">
-                  <div className="product--cart__heading">
-                    <div className="product--cart__heading-image">
-                      <img src={CartImage1} alt="Gucci show" />
-                    </div>
-                    <div className="product--cart__heading-display">
-                      <span className="product--cart__itemCat">Shoe</span>
-                      <p className="product--cart__itemName">
-                        Gucci Women's flower Leather heels in black- Blue
-                      </p>
-                      <p className="product--cart__itemPrice">₦234,980.00</p>
-                    </div>
-                    <div className="product--cart__delete">
-                      <img src={DeleteIcon} alt="Delete order icon" />
-                    </div>
-                  </div>
-
-                  <div className="product--cart__heading">
-                    <div className="product--cart__heading-image">
-                      <img src={CartImage2} alt="Gucci show" />
-                    </div>
-                    <div className="product--cart__heading-display">
-                      <span className="product--cart__itemCat">Shoe</span>
-                      <p className="product--cart__itemName">
-                        Gucci Women's Leather luxurious bag - pink
-                      </p>
-                      <p className="product--cart__itemPrice">₦234,980.00</p>
-                    </div>
-                    <div className="product--cart__delete">
-                      <img src={DeleteIcon} alt="Delete order icon" />
-                    </div>
-                  </div>
+                  {cart.map((item, index) => {
+                    return (
+                      <>
+                        <div className="product--cart__heading" key={index}>
+                          <div className="product--cart__heading-image">
+                            <img
+                              src={item?.productImage}
+                              alt="cart product item"
+                            />
+                          </div>
+                          <div className="product--cart__heading-display">
+                            <span className="product--cart__itemCat">
+                              {item.productCategory}
+                            </span>
+                            <p className="product--cart__itemName">
+                              {item.productName}
+                            </p>
+                            <p className="product--cart__itemPrice">
+                              ₦234,980.00
+                            </p>
+                          </div>
+                          <div
+                            className="product--cart__delete"
+                            onClick={() => onRemoveFromCart(item)}
+                          >
+                            <img src={DeleteIcon} alt="Delete order icon" />
+                          </div>
+                        </div>
+                      </>
+                    );
+                  })}
                 </div>
 
                 <div className="product--checkout__order-summary">

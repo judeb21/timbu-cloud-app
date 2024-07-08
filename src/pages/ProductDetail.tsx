@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import LeftCaretIcon from "../assets/icons/left-caret-icon.svg";
 import "./pages.scss";
 import FlowerShoe from "../assets/products/FlowerHeels.png";
@@ -11,14 +11,39 @@ import PrimaryButton from "../components/ui/Button/PrimaryButton";
 import Avatar from "../assets/products/Avatar.png";
 import PurchasedProduct from "../assets/products/referenceBuy.png";
 import RefreshIcon from "../assets/icons/refresh-icon.svg";
-import { recentProducts } from "../products";
+import { RecentProducts, allProducts, recentProducts } from "../products";
 import RecentProductItem from "../components/ui/RecentProductITems";
+import useCart from "../hooks/useCart";
+import { useState } from "react";
 
 function ProductDetail() {
+  const { id } = useParams();
   const navigate = useNavigate();
+  const { dispatch, REDUCER_ACTIONS, cart } = useCart();
+  const [productInCart, setProductInCart] = useState<boolean>(false);
 
   const addToCart = () => {
-    return navigate("/cart");
+    const product = allProducts.find(
+      (item) => item.id === Number(id)
+    ) as RecentProducts;
+
+    const productisInCart = cart.findIndex((item) => item.id === Number(id));
+    if (productisInCart === 0) {
+      setProductInCart(true);
+      return;
+    }
+
+    dispatch({
+      type: REDUCER_ACTIONS.ADD,
+      payload: {
+        ...product,
+        quantity: 1,
+      },
+    });
+  };
+
+  const goToHomePage = () => {
+    return navigate(`/`);
   };
 
   return (
@@ -26,7 +51,7 @@ function ProductDetail() {
       <div>
         <div className="container">
           <div className="layout--content">
-            <div className="breadcrumbs">
+            <div className="breadcrumbs" onClick={goToHomePage}>
               <div className="breadcrumbs--category">
                 <div className="breadcrumbs--category__caret">
                   <img src={LeftCaretIcon} alt="left caret" />
@@ -110,7 +135,6 @@ function ProductDetail() {
                             type="radio"
                             name="color"
                             className="product--color__radiant primary"
-                            checked
                           />
                         </label>
 
@@ -119,7 +143,6 @@ function ProductDetail() {
                             type="radio"
                             name="color"
                             className="product--color__radiant orange"
-                            disabled
                           />
                         </label>
 
@@ -128,7 +151,6 @@ function ProductDetail() {
                             type="radio"
                             name="color"
                             className="product--color__radiant indigo"
-                            disabled
                           />
                         </label>
 
@@ -137,7 +159,6 @@ function ProductDetail() {
                             type="radio"
                             name="color"
                             className="product--color__radiant blue-grey"
-                            disabled
                           />
                         </label>
                       </div>
@@ -146,11 +167,19 @@ function ProductDetail() {
 
                   <div className="product--color__but">
                     <div className="product--color__main--btn">
-                      <PrimaryButton
-                        className="product--color__button"
-                        title="Add to cart"
-                        onClick={() => addToCart()}
-                      />
+                      {productInCart ? (
+                        <PrimaryButton
+                          className="product--color__button"
+                          title="Product is in cart"
+                          disabled
+                        />
+                      ) : (
+                        <PrimaryButton
+                          className="product--color__button"
+                          title="Add to cart"
+                          onClick={() => addToCart()}
+                        />
+                      )}
                     </div>
                     <div className="product--color__wish-button">
                       <img src={WishListIcon} alt="Add to wishlist icon" />
@@ -369,8 +398,8 @@ function ProductDetail() {
                   <h5>Recently Viewed Product</h5>
 
                   <div className="product--recentViews__container">
-                    {recentProducts.map((product) => {
-                      return <RecentProductItem recentProduct={product} />
+                    {recentProducts.map((product, index) => {
+                      return <RecentProductItem key={index} recentProduct={product} />;
                     })}
                   </div>
                 </div>

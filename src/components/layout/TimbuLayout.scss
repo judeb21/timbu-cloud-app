@@ -1,7 +1,7 @@
 @import "/src/styles/abstract/variables.scss";
 
 .container--nav {
-  border: 1px solid #F0F0F0;
+  border: 1px solid #f0f0f0;
 }
 
 .top {
@@ -30,7 +30,7 @@
       line-height: 18.57px;
       font-size: 14px;
       font-weight: 700;
-      font-family: "Open Sans", sans-serif;
+      font-family: "Playfair Display", serif;
       font-style: normal;
       font-variation-settings: "wdth" 100;
       color: $text-color2;
@@ -42,6 +42,14 @@
       display: flex;
       align-items: center;
       justify-content: flex-end;
+      column-gap: 14px;
+
+      & a {
+        &.active {
+          background: #ffe2df;
+          border-radius: 8px;
+        }
+      }
     }
 
     &__profile {
@@ -209,6 +217,7 @@
         line-height: 18.57px;
         color: #f5f5f5;
         font-weight: 700;
+        font-family: "Playfair Display", serif;
       }
     }
 
@@ -302,7 +311,7 @@
 
     & p {
       text-align: center;
-      color: #FDFEFB;
+      color: #fdfefb;
       font-weight: 400;
       font-size: 14px;
       line-height: 19.07px;
