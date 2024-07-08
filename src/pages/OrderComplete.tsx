@@ -1,12 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import CheckedIcon from "../assets/icons/checked-icon.svg";
+import PrimaryButton from "../components/ui/Button/PrimaryButton";
 
 function OrderComplete() {
   const navigate = useNavigate();
 
   const continueShopping = () => {
-    return navigate('/');
-  }
+    return navigate("/");
+  };
 
   return (
     <div className="container">
@@ -14,7 +15,9 @@ function OrderComplete() {
         <div className="timbu--order__confirm">
           <img src={CheckedIcon} alt="order completed" />
           <h4>Thank you for your purchase</h4>
-          <p>Thank you for choosing our service! Your purchase means a lot to us.</p>
+          <p>
+            Thank you for choosing our service! Your purchase means a lot to us.
+          </p>
         </div>
 
         <div className="timbu--order__details">
@@ -26,7 +29,9 @@ function OrderComplete() {
             </p>
             <p>
               <span>Date & Time of Purchase</span>
-              <span className="timbu--order__order-ref">12/15/2023, 10:30 AM</span>
+              <span className="timbu--order__order-ref">
+                12/15/2023, 10:30 AM
+              </span>
             </p>
           </div>
 
@@ -34,11 +39,15 @@ function OrderComplete() {
             <h5>Delivery Informaton</h5>
             <p>
               <span>Recipient</span>
-              <span>Omowunmi Jomoh <br /> +2348764567</span>
+              <span>
+                Omowunmi Jomoh <br /> +2348764567
+              </span>
             </p>
             <p>
               <span>Delivery Address</span>
-              <span className="timbu--order__delivery-address">17 Adeola Odeku Street, Victoria Island, Lagos, Nigeria</span>
+              <span className="timbu--order__delivery-address">
+                17 Adeola Odeku Street, Victoria Island, Lagos, Nigeria
+              </span>
             </p>
             <p>
               <span>Delivery Date</span>
@@ -51,13 +60,17 @@ function OrderComplete() {
           </div>
 
           <div className="product--summary__button">
-            <button onClick={() => continueShopping()}>Continue shopping</button>
+            <PrimaryButton
+              className="product--color__button"
+              title="Continue shopping"
+              onClick={() => continueShopping()}
+            />
             <p className="timbu--order__view">View order</p>
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default OrderComplete;

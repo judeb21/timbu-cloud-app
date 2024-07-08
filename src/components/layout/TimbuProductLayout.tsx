@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, ScrollRestoration } from "react-router-dom";
 import Navigation from "../ui/Navigation";
 import "./TimbuLayout.scss";
 import Footer from "../ui/Footer";
@@ -23,6 +23,8 @@ function TimbuProductLayout() {
 
         {/* Footer */}
         <Footer />
+
+        <ScrollRestoration />
       </div>
     </>
   );

@@ -7,6 +7,7 @@ import CartImage2 from "../assets/products/CartProduct2.png";
 import RightCaret from "../assets/icons/right-caret-input-icon.svg";
 import BlackColor from "../assets/icons/black-color-icon.svg";
 import { useNavigate } from "react-router-dom";
+import PrimaryButton from "../components/ui/Button/PrimaryButton";
 
 function ProductCart() {
   const navigate = useNavigate();
@@ -165,7 +166,11 @@ function ProductCart() {
                     </div>
 
                     <div className="product--summary__button">
-                      <button onClick={() => goToCheckout()}>Checkout</button>
+                      <PrimaryButton
+                        className="product--color__button"
+                        title="Checkout"
+                        onClick={() => goToCheckout()}
+                      />
                     </div>
                   </div>
                 </div>

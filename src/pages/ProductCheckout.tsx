@@ -5,6 +5,7 @@ import DeleteIcon from "../assets/icons/cart-delete-icon.svg";
 import { useNavigate } from "react-router-dom";
 import "../styles/component/input-field.scss";
 import { Input } from "../components/ui/Input/Input";
+import PrimaryButton from "../components/ui/Button/PrimaryButton";
 
 function ProductCheckout() {
   const navigate = useNavigate();
@@ -226,9 +227,11 @@ function ProductCheckout() {
                 </div>
 
                 <div className="product--summary__button">
-                  <button onClick={() => goToCompleteORder()}>
-                    Confirm Payment
-                  </button>
+                  <PrimaryButton
+                    className="product--color__button"
+                    title="Confirm Payment"
+                    onClick={() => goToCompleteORder()}
+                  />
                 </div>
               </div>
             </div>

@@ -113,3 +113,52 @@
     border: 1.5px solid #039C03;
   }
 }
+
+.product--color__radiant {
+  appearance: none;
+  -webkit-appearance: none;
+  margin: 0;
+  font: inherit;
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  &:before {
+    content: url('../../assets/icons/white-radio-checked.png');
+    width: 12.83px;
+    height: 6.42px;
+    transform: scale(0);
+    transition: 100ms transform ease-in-out;
+  }
+
+  &:checked {
+
+    &:before {
+      transform: scale(0.4);
+      margin-left: -6px;
+      margin-top: -6px;
+    }
+  }
+
+  &:focus {
+    border: none;
+  }
+
+  &.primary {
+    background: $main-color;
+  }
+  &.orange {
+    background: #ea580c;
+  }
+  &.indigo {
+    background: #6366F1;
+  }
+  &.blue-grey {
+    background: #334155;
+  }
+}

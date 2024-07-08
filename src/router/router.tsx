@@ -9,6 +9,7 @@ import TimbuProductLayout from "../components/layout/TimbuProductLayout";
 import ProductCart from "../pages/ProductCart";
 import ProductCheckout from "../pages/ProductCheckout";
 import OrderComplete from "../pages/OrderComplete";
+import ProductDetail from "../pages/ProductDetail";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -19,6 +20,7 @@ export const router = createBrowserRouter(
       <Route path="/cart" element={<ProductCart />} />
       <Route path="/checkout" element={<ProductCheckout />} />
       <Route path="/order-complete" element={<OrderComplete />} />
+      <Route path="/product-details" element={<ProductDetail />} />
     </Route>
   )
 );

@@ -21,6 +21,12 @@
   --tc-body-font-size: 14px;
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  :root {
+    scroll-behavior: smooth;
+  }
+}
+
 body {
   margin: 0;
   font-family: var(--tc-body-font-family);
