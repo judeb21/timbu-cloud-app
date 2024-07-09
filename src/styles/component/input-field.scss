@@ -12,7 +12,9 @@
 
       @media (max-width: 578px) {
         flex-direction: column;
+        gap: 0;
       }
+      
     }
   }
 
@@ -69,15 +71,94 @@
     font-family: "Open Sans", sans-serif;
     padding: 16px;
     width: 100%;
-    
+
     appearance: none;
     background-repeat: no-repeat;
-    background-image: url('../../assets/icons/chevron-up.png');
+    background-image: url("../../assets/icons/chevron-up.png");
     background-position: right 0.7rem top 50%;
     background-size: 24px auto;
 
     &:focus {
       outline: none;
+    }
+  }
+
+  &-number {
+    margin-top: 10px;
+    width: 100%;
+    margin-bottom: 15px;
+
+    &-label {
+      color: #3e2a9b;
+      font-size: 14px;
+      line-height: 16px;
+      font-family: "Open Sans", sans-serif;
+      margin-bottom: 3px;
+    }
+
+    &-input {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    &-flagSelect {
+      display: flex;
+      align-items: center;
+      height: 56px;
+      padding: 16px;
+      gap: 8px;
+      background: #f0f0f0;
+      border-radius: 8px;
+
+      @media (max-width: 360px) {
+        padding: 16px 10px;
+      }
+
+      & .form-select {
+        padding: 5px;
+        width: 80px;
+        color: #0F1D2D;
+      }
+    }
+
+    &__input {
+      background: #f0f0f0;
+      padding: 16px 80px 16px 16px;
+      height: 56px;
+      color: #777777;
+      font-size: 16px;
+      line-height: 24px;
+      font-family: "Open Sans", sans-serif;
+      flex: 1;
+      border-radius: 8px;
+
+      @media (max-width: 578px) {
+        padding: 16px;
+      }
+
+      & input {
+        color: #777777;
+        font-size: 16px;
+        line-height: 24px;
+        font-family: "Open Sans", sans-serif;
+        flex: 1;
+        border-radius: 8px;
+        border: none;
+        background: inherit;
+        width: 100%;
+
+        &::placeholder {
+          color: inherit;
+          line-height: inherit;
+          font-family: inherit;
+          font-size: inherit;
+        }
+    
+        &:focus {
+          outline: none;
+        }
+      }
     }
   }
 }
@@ -96,7 +177,7 @@
   justify-content: center;
 
   &:before {
-    content: url('../../assets/icons/radio-checked.png');
+    content: url("../../assets/icons/radio-checked.png");
     width: 7.12px;
     height: 4.75px;
     transform: scale(0);
@@ -104,7 +185,7 @@
   }
 
   &:checked {
-    border: 1.5px solid #039C03;
+    border: 1.5px solid #039c03;
 
     &:before {
       transform: scale(0.5);
@@ -114,7 +195,7 @@
   }
 
   &:focus {
-    border: 1.5px solid #039C03;
+    border: 1.5px solid #039c03;
   }
 }
 
@@ -133,7 +214,7 @@
   cursor: pointer;
 
   &:before {
-    content: url('../../assets/icons/white-radio-checked.png');
+    content: url("../../assets/icons/white-radio-checked.png");
     width: 12.83px;
     height: 6.42px;
     transform: scale(0);
@@ -141,7 +222,6 @@
   }
 
   &:checked {
-
     &:before {
       transform: scale(0.4);
       margin-left: -6px;
@@ -160,7 +240,7 @@
     background: #ea580c;
   }
   &.indigo {
-    background: #6366F1;
+    background: #6366f1;
   }
   &.blue-grey {
     background: #334155;

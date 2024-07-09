@@ -7,12 +7,20 @@ import PrimaryButton from "../components/ui/Button/PrimaryButton";
 import useCart from "../hooks/useCart";
 import { RecentProducts } from "../products";
 import currencyFormatter from "../helpers/currencyFormatter";
-import { FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
+import { CountryCode, E164Number } from "libphonenumber-js/core";
+import PhoneInput, {
+  getCountries,
+  getCountryCallingCode,
+} from "react-phone-number-input/input";
+import CountryFlag from "react-country-flag";
 
 function ProductCheckout() {
   const { dispatch, REDUCER_ACTIONS, cart, totalPrice } = useCart();
   const navigate = useNavigate();
   const [payment, setPayment] = useState("delivery");
+  const [value, setValue] = useState<E164Number>();
+  const [country, setCountry] = useState<CountryCode | string>("NG");
 
   const estShppingFee = 4510;
 
@@ -36,6 +44,10 @@ function ProductCheckout() {
   const totalProductPrice = () => {
     const total = totalPrice + estShppingFee;
     return total;
+  };
+
+  const setCountryValue = (event: ChangeEvent<HTMLSelectElement>) => {
+    setCountry(event?.target?.value);
   };
 
   return (
@@ -99,6 +111,41 @@ function ProductCheckout() {
                           required={false}
                           value=""
                         />
+                      </div>
+                    </div>
+
+                    <div className="form-number">
+                      <p className="form-number-label">Phone number</p>
+                      <div className="form-number-input">
+                        <div className="form-number-flagSelect">
+                          <div>
+                            <CountryFlag
+                              countryCode={country}
+                              style={{ fontSize: "1.5em" }}
+                            />
+                          </div>
+                          <select
+                            value={country}
+                            onChange={setCountryValue}
+                            className="form-select"
+                          >
+                            <option value="">{""}</option>
+                            {getCountries().map((country) => (
+                              <option key={country} value={country}>
+                                +{getCountryCallingCode(country)}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                        <div className="form-number__input">
+                          <PhoneInput
+                            international
+                            country={country as CountryCode}
+                            value={value}
+                            onChange={setValue}
+                            placeholder="Enter phone number"
+                          />
+                        </div>
                       </div>
                     </div>
 

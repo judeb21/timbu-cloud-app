@@ -302,6 +302,12 @@
           }
         }
 
+        @media (max-width: 578px) {
+          & .product--card__image img {
+            height: 390px;
+          }
+        }
+
         @media only screen and (min-width: 768px) and (max-width: 991px) {
           & .product--card__image img {
             height: 480px;
@@ -327,6 +333,12 @@
         @media (max-width: 767px) {
           & .product--card__image img {
             height: 400px;
+          }
+        }
+
+        @media (max-width: 578px) {
+          & .product--card__image img {
+            height: 390px;
           }
         }
 
@@ -367,6 +379,10 @@
 
         @media (max-width: 767px) {
           height: 128px;
+        }
+
+        @media (max-width: 57px) {
+          height: 150px;
         }
 
         @media only screen and (min-width: 768px) and (max-width: 991px) {
