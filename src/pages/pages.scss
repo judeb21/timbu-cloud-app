@@ -107,6 +107,11 @@
       font-weight: 700;
       line-height: 43.58px;
       font-family: "Open Sans", sans-serif;
+
+      @media (max-width: 991px) {
+        font-size: 20px;
+        line-height: 27px;
+      }
     }
 
     & p {

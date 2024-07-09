@@ -4,6 +4,7 @@ import LeftCaretIcon from "../assets/icons/left-caret-icon.svg";
 import "./pages.scss";
 import { RecentProducts, allProducts } from "../products";
 import useWishlist from "../hooks/useWishlist";
+import SearchIcon from "../assets/icons/search-icon.svg";
 
 function Product() {
   const navigate = useNavigate();
@@ -79,6 +80,57 @@ function Product() {
                     <span>All order</span>
                   </NavLink>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile nav */}
+        <div className="container">
+          <div className="mobile--navigation">
+            <div className="mobile--navigation__search">
+              <img src={SearchIcon} alt="search icon" />
+              <input type="text" placeholder="Search product and Brands" />
+            </div>
+
+            <div>
+              <div className="mobile--buttons">
+                <div className="mobile--main">
+                  <NavLink to="#">
+                    <span>Become a seller</span>
+                  </NavLink>
+                </div>
+                <div className="mobile--secondary">
+                  <NavLink to="#">
+                    <span>All order</span>
+                  </NavLink>
+                </div>
+              </div>
+            </div>
+
+            <div className="mobile--filters">
+              <div className="mobile--filter">
+                <img src={FilterIcon} alt="filter icon" />
+                <span>Filter</span>
+              </div>
+
+              <div className="mobile--categories">
+                <span>All Category</span>
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M19 8.5C19 8.5 14.856 15.5 12 15.5C9.145 15.5 5 8.5 5 8.5"
+                    stroke="black"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
               </div>
             </div>
           </div>

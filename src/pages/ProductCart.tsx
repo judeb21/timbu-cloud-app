@@ -7,6 +7,7 @@ import useCart from "../hooks/useCart";
 import NotFound from "../components/ui/NotFound";
 import currencyFormatter from "../helpers/currencyFormatter";
 import CartItem from "../components/ui/CartItem";
+import SearchIcon from "../assets/icons/search-icon.svg";
 
 function ProductCart() {
   const navigate = useNavigate();
@@ -29,6 +30,15 @@ function ProductCart() {
   return (
     <>
       <div>
+        <div className="container">
+          <div className="mobile--navigation">
+            <div className="mobile--navigation__search">
+              <img src={SearchIcon} alt="search icon" />
+              <input type="text" placeholder="Search product and Brands" />
+            </div>
+          </div>
+        </div>
+
         <div className="container">
           <div className="layout--content">
             <div className="breadcrumbs" onClick={goToHomePage}>

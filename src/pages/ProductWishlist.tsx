@@ -4,6 +4,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import NotFound from "../components/ui/NotFound";
 import useWishlist from "../hooks/useWishlist";
 import { RecentProducts } from "../products";
+import SearchIcon from "../assets/icons/search-icon.svg";
 
 function ProductWishlist() {
   const { remit, WISHLIST_REDUCER_ACTIONS, wishlist } = useWishlist();
@@ -26,6 +27,14 @@ function ProductWishlist() {
   return (
     <>
       <div>
+        <div className="container">
+          <div className="mobile--navigation">
+            <div className="mobile--navigation__search">
+              <img src={SearchIcon} alt="search icon" />
+              <input type="text" placeholder="Search product and Brands" />
+            </div>
+          </div>
+        </div>
         <div className="container">
           <div className="layout--content">
             <div className="breadcrumbs" onClick={goToHomePage}>

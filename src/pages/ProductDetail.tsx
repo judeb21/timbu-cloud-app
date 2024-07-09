@@ -17,6 +17,7 @@ import useCart from "../hooks/useCart";
 import { useState } from "react";
 import currencyFormatter from "../helpers/currencyFormatter";
 import useWishlist from "../hooks/useWishlist";
+import SearchIcon from "../assets/icons/search-icon.svg";
 
 function ProductDetail() {
   const { id } = useParams();
@@ -91,6 +92,15 @@ function ProductDetail() {
   return (
     <>
       <div>
+        <div className="container">
+          <div className="mobile--navigation">
+            <div className="mobile--navigation__search">
+              <img src={SearchIcon} alt="search icon" />
+              <input type="text" placeholder="Search product and Brands" />
+            </div>
+          </div>
+        </div>
+        
         <div className="container">
           <div className="layout--content">
             <div className="breadcrumbs">
