@@ -13,6 +13,10 @@
     gap: 10px;
     align-items: center;
 
+    @media (max-width: 360px) {
+      padding: 12px 0;
+    }
+
     &__logo {
       width: 171px;
       height: 50px;
@@ -24,6 +28,11 @@
     &__img {
       height: 38px;
       width: 38px;
+
+      @media (max-width: 360px) {
+        height: 30px;
+        width: 30px;
+      }
     }
 
     &__title {
@@ -34,6 +43,10 @@
       font-style: normal;
       font-variation-settings: "wdth" 100;
       color: $text-color2;
+
+      @media (max-width: 360px) {
+        font-size: 12px;
+      }
     }
 
     &__shop {
@@ -44,6 +57,14 @@
       justify-content: flex-end;
       column-gap: 14px;
 
+      @media (max-width: 360px) {
+        column-gap: 1px;
+      }
+
+      @media (max-width: 578px) {
+        column-gap: 12px;
+      }
+
       & a {
         &.active {
           background: #ffe2df;
@@ -52,10 +73,38 @@
       }
     }
 
+    &__wishlist,
+    &__cart {
+
+      & img {
+        @media (max-width: 360px) {
+          height: 30px;
+          width: 30px;
+        }
+
+        @media (max-width: 578px) {
+          height: 35px;
+          width: 35px;
+        }
+      }
+    }
+
     &__profile {
       height: 50px;
       width: 50px;
       margin-left: 12px;
+
+      @media (max-width: 360px) {
+        height: 30px;
+        width: 30px;
+        margin-left: 5px;
+      }
+
+      @media (max-width: 991px) {
+        height: 35px;
+        width: 35px;
+        margin-left: 5px;
+      }
 
       & img {
         height: 100%;
@@ -73,6 +122,14 @@
       max-width: 608px;
       width: 100%;
       background: #f5f5f5;
+
+      @media (max-width: 991px) {
+        display: none;
+      }
+
+      @media (max-width: 1199px) {
+        max-width: 4500px;
+      }
 
       & input {
         border: none;
@@ -102,6 +159,10 @@
 .subnav {
   position: relative;
   background: #fff5f4;
+
+  @media (max-width: 991px) {
+    display: none;
+  }
 
   &--container {
     display: flex;
@@ -191,15 +252,32 @@
   background: #aa4a41;
   padding: 62px 99px;
 
+  @media (max-width: 991px) {
+    padding: 18px 24px;
+  }
+
   &--container {
     display: flex;
     gap: 99px;
+
+    @media (max-width: 991px) {
+      flex-direction: column;
+      gap: 35px;
+    }
+
+    @media (max-width: 1199px) {
+      gap: 50px;
+    }
   }
 
   &--description {
     position: relative;
     max-width: 277px;
     width: 100%;
+
+    @media (max-width: 991px) {
+      max-width: 100%;
+    }
 
     &__logo {
       width: 171px;
@@ -241,6 +319,10 @@
       line-height: 19.07px;
       font-weight: 700;
       margin-bottom: 24px;
+
+      @media (max-width: 991px) {
+        margin-bottom: 12px;
+      }
     }
   }
 

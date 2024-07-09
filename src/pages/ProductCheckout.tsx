@@ -6,12 +6,20 @@ import { Input } from "../components/ui/Input/Input";
 import PrimaryButton from "../components/ui/Button/PrimaryButton";
 import useCart from "../hooks/useCart";
 import { RecentProducts } from "../products";
+import currencyFormatter from "../helpers/currencyFormatter";
+import { FormEvent, useState } from "react";
 
 function ProductCheckout() {
-  const { dispatch, REDUCER_ACTIONS, cart } = useCart();
+  const { dispatch, REDUCER_ACTIONS, cart, totalPrice } = useCart();
   const navigate = useNavigate();
+  const [payment, setPayment] = useState("delivery");
+
+  const estShppingFee = 4510;
 
   const goToCompleteORder = () => {
+    dispatch({
+      type: REDUCER_ACTIONS.SUBMIT,
+    });
     return navigate("/order-complete");
   };
 
@@ -24,6 +32,11 @@ function ProductCheckout() {
       type: REDUCER_ACTIONS.REMOVE,
       payload: item,
     });
+
+  const totalProductPrice = () => {
+    const total = totalPrice + estShppingFee;
+    return total;
+  };
 
   return (
     <>
@@ -133,7 +146,11 @@ function ProductCheckout() {
                   <h5>Payment Method</h5>
 
                   <div className="product--payment">
-                    <div className="product--payment__options active">
+                    <div
+                      className={`product--payment__options ${
+                        payment === "delivery" ? "active" : ""
+                      }`}
+                    >
                       <label>
                         <div>
                           <input
@@ -141,6 +158,10 @@ function ProductCheckout() {
                             id="paymentDelivery"
                             className="payment--input"
                             name="payment"
+                            value="delivery"
+                            onChange={(e: FormEvent<HTMLInputElement>) => {
+                              setPayment(e.currentTarget?.value);
+                            }}
                           />
                         </div>
                         <div>
@@ -150,13 +171,21 @@ function ProductCheckout() {
                       </label>
                     </div>
 
-                    <div className="product--payment__options">
+                    <div
+                      className={`product--payment__options ${
+                        payment === "online" ? "active" : ""
+                      }`}
+                    >
                       <label>
                         <div>
                           <input
                             type="radio"
                             name="payment"
                             className="payment--input"
+                            value="online"
+                            onChange={(e: FormEvent<HTMLInputElement>) => {
+                              setPayment(e.currentTarget?.value);
+                            }}
                           />
                         </div>
                         <div>
@@ -191,7 +220,7 @@ function ProductCheckout() {
                               {item.productName}
                             </p>
                             <p className="product--cart__itemPrice">
-                              ₦234,980.00
+                              {currencyFormatter(item.price)}
                             </p>
                           </div>
                           <div
@@ -212,7 +241,7 @@ function ProductCheckout() {
                     <p>
                       <span className="product--summary__text">Sub-Total</span>
                       <span className="product--summary__amount">
-                        ₦234,980.00
+                        {currencyFormatter(totalPrice)}
                       </span>
                     </p>
                     <p>
@@ -220,7 +249,7 @@ function ProductCheckout() {
                         Estimated Shipping fee
                       </span>
                       <span className="product--summary__amount">
-                        ₦4,510.00
+                        {currencyFormatter(estShppingFee)}
                       </span>
                     </p>
                   </div>
@@ -229,7 +258,7 @@ function ProductCheckout() {
                     <p>
                       <span className="product--summary__text">Total</span>
                       <span className="product--summary__amount">
-                        ₦239,490.00
+                        {currencyFormatter(totalProductPrice())}
                       </span>
                     </p>
                   </div>

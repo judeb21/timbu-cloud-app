@@ -1,18 +1,17 @@
 import LeftCaretIcon from "../assets/icons/left-caret-icon.svg";
 import "./pages.scss";
-import DeleteIcon from "../assets/icons/cart-delete-icon.svg";
 import PromoIcon from "../assets/icons/promo-icon.svg";
-import RightCaret from "../assets/icons/right-caret-input-icon.svg";
-import BlackColor from "../assets/icons/black-color-icon.svg";
 import { useNavigate } from "react-router-dom";
 import PrimaryButton from "../components/ui/Button/PrimaryButton";
 import useCart from "../hooks/useCart";
-import { RecentProducts } from "../products";
 import NotFound from "../components/ui/NotFound";
+import currencyFormatter from "../helpers/currencyFormatter";
+import CartItem from "../components/ui/CartItem";
 
 function ProductCart() {
   const navigate = useNavigate();
-  const { dispatch, REDUCER_ACTIONS, cart } = useCart();
+  const { dispatch, REDUCER_ACTIONS, cart, totalPrice } = useCart();
+  const estShppingFee = 4510;
 
   const goToCheckout = () => {
     return navigate("/checkout");
@@ -22,11 +21,10 @@ function ProductCart() {
     return navigate(`/`);
   };
 
-  const onRemoveFromCart = (item: RecentProducts) =>
-    dispatch({
-      type: REDUCER_ACTIONS.REMOVE,
-      payload: item,
-    });
+  const totalProductPrice = () => {
+    const total = totalPrice + estShppingFee;
+    return total;
+  };
 
   return (
     <>
@@ -54,58 +52,12 @@ function ProductCart() {
                     <div className="product--cart">
                       {cart.map((item, index) => {
                         return (
-                          <>
-                            <div className="product--carts" key={index}>
-                              <div className="product--cart__heading">
-                                {/* Image */}
-                                <div className="product--cart__heading-image">
-                                  <img src={item?.productImage} alt="image" />
-                                </div>
-                                {/* Product description */}
-                                <div className="product--cart__heading-display">
-                                  <span className="product--cart__itemCat">
-                                    {item?.productCategory}
-                                  </span>
-                                  <p className="product--cart__itemName">
-                                    {item?.productName}
-                                  </p>
-                                  <p className="product--cart__itemPrice">
-                                    ₦234,980.00
-                                  </p>
-                                </div>
-                              </div>
-                              {/* Order options */}
-                              <div className="product--cart__options">
-                                <div className="product--cart__variaties">
-                                  {/* quantity select */}
-                                  <div className="product--cart__quantity">
-                                    <span>1</span>
-                                    <img src={RightCaret} alt="right caret" />
-                                  </div>
-                                  {/* Color Select */}
-                                  <div className="product--cart__color">
-                                    <div className="product--cart__color-preview">
-                                      <img
-                                        src={BlackColor}
-                                        alt="color variation"
-                                      />
-                                    </div>
-                                    <img src={RightCaret} alt="right caret" />
-                                  </div>
-                                </div>
-                                {/* Delete */}
-                                <div
-                                  className="product--cart__delete"
-                                  onClick={() => onRemoveFromCart(item)}
-                                >
-                                  <img
-                                    src={DeleteIcon}
-                                    alt="Delete order icon"
-                                  />
-                                </div>
-                              </div>
-                            </div>
-                          </>
+                          <CartItem
+                            key={index}
+                            item={item}
+                            dispatch={dispatch}
+                            REDUCER_ACTIONS={REDUCER_ACTIONS}
+                          />
                         );
                       })}
                     </div>
@@ -120,7 +72,7 @@ function ProductCart() {
                               Sub-Total
                             </span>
                             <span className="product--summary__amount">
-                              ₦234,980.00
+                              {currencyFormatter(totalPrice)}
                             </span>
                           </p>
                           <p>
@@ -128,7 +80,7 @@ function ProductCart() {
                               Estimated Shipping fee
                             </span>
                             <span className="product--summary__amount">
-                              ₦4,510.00
+                              {currencyFormatter(estShppingFee)}
                             </span>
                           </p>
                         </div>
@@ -157,7 +109,7 @@ function ProductCart() {
                               Total
                             </span>
                             <span className="product--summary__amount">
-                              ₦239,490.00
+                              {currencyFormatter(totalProductPrice())}
                             </span>
                           </p>
                         </div>

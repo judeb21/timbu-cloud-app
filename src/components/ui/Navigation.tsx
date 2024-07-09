@@ -2,13 +2,16 @@ import { NavLink } from "react-router-dom";
 import Logo from "../../assets/icons/logo.svg";
 import ProfileImage from "../../assets/icons/profile.png";
 import NoWishListIcon from "../../assets/icons/wishlist-icon-none.svg";
+import WishlistIcon from "../../assets/icons/wishlist-icon.svg";
 import CartIcon from "../../assets/icons/cart-icon.svg";
 import CartIconNone from "../../assets/icons/no-cart-item-icon.svg";
 import SearchIcon from "../../assets/icons/search-icon.svg";
 import useCart from "../../hooks/useCart";
+import useWishlist from "../../hooks/useWishlist";
 
 function Navigation() {
   const { totalItems } = useCart();
+  const {totalWishlistItems} = useWishlist();
   return (
     <>
       <div className="top--navigation">
@@ -24,7 +27,11 @@ function Navigation() {
 
         <div className="top--navigation__shop">
           <NavLink to="/wishlist" className="top--navigation__wishlist pointer">
-            <img src={NoWishListIcon} alt="wishlist icon" />
+            {totalWishlistItems > 0 ? (
+              <img src={WishlistIcon} alt="wishlist icon" />
+            ) : (
+              <img src={NoWishListIcon} alt="wishlist icon" />
+            )}
           </NavLink>
           <NavLink to="/cart" className="top--navigation__cart pointer">
             {totalItems > 0 ? (

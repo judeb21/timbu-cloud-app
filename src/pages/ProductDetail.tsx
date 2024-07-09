@@ -1,9 +1,9 @@
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import LeftCaretIcon from "../assets/icons/left-caret-icon.svg";
 import "./pages.scss";
-import FlowerShoe from "../assets/products/FlowerHeels.png";
 import TagIcon from "../assets/icons/tag-icon.svg";
 import WishListIcon from "../assets/icons/wishlist-add-icon.svg";
+import RemoveWishListIcon from "../assets/icons/wishlist-added-icon.svg";
 import ShoppingIcon from "../assets/icons/shopping-icon.svg";
 import WalletIcon from "../assets/icons/waller-icon.svg";
 import ProfileIcon from "../assets/icons/profile-icon.svg";
@@ -15,12 +15,17 @@ import { RecentProducts, allProducts, recentProducts } from "../products";
 import RecentProductItem from "../components/ui/RecentProductITems";
 import useCart from "../hooks/useCart";
 import { useState } from "react";
+import currencyFormatter from "../helpers/currencyFormatter";
+import useWishlist from "../hooks/useWishlist";
 
 function ProductDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { dispatch, REDUCER_ACTIONS, cart } = useCart();
+  const { remit, WISHLIST_REDUCER_ACTIONS, wishlist } = useWishlist();
   const [productInCart, setProductInCart] = useState<boolean>(false);
+  const defaultAmount = 70700;
+  const [buttonText, setButtonText] = useState("Add to Cart");
 
   const addToCart = () => {
     const product = allProducts.find(
@@ -30,6 +35,7 @@ function ProductDetail() {
     const productisInCart = cart.findIndex((item) => item.id === Number(id));
     if (productisInCart === 0) {
       setProductInCart(true);
+      setButtonText("Product is in cart");
       return;
     }
 
@@ -40,10 +46,46 @@ function ProductDetail() {
         quantity: 1,
       },
     });
+    setProductInCart(true);
+    setButtonText("Product is in cart");
   };
 
   const goToHomePage = () => {
     return navigate(`/`);
+  };
+
+  const productDetails = allProducts.find(
+    (item) => item.id === Number(id)
+  ) as RecentProducts;
+
+  const addToWishList = (id: number) => {
+    const product = allProducts.find(
+      (item) => item.id === Number(id)
+    ) as RecentProducts;
+
+    const productisInWish = wishlist.findIndex(
+      (item) => item.id === Number(id)
+    );
+
+    const wishlistProduct = wishlist.find((item) => item.id === id);
+
+    if (productisInWish === 0) {
+      remit({
+        type: WISHLIST_REDUCER_ACTIONS.REMOVE,
+        payload: wishlistProduct,
+      });
+
+      return;
+    }
+
+    remit({
+      type: WISHLIST_REDUCER_ACTIONS.ADD,
+      payload: {
+        ...product,
+        quantity: 1,
+      },
+    });
+    return;
   };
 
   return (
@@ -51,8 +93,8 @@ function ProductDetail() {
       <div>
         <div className="container">
           <div className="layout--content">
-            <div className="breadcrumbs" onClick={goToHomePage}>
-              <div className="breadcrumbs--category">
+            <div className="breadcrumbs">
+              <div className="breadcrumbs--category" onClick={goToHomePage}>
                 <div className="breadcrumbs--category__caret">
                   <img src={LeftCaretIcon} alt="left caret" />
                 </div>
@@ -65,7 +107,7 @@ function ProductDetail() {
                 </div>
               </div>
               <div className="subnav--secondary">
-                <NavLink to="#">
+                <NavLink to="/cart">
                   <span>All order</span>
                 </NavLink>
               </div>
@@ -74,11 +116,14 @@ function ProductDetail() {
             <div className="product--details">
               <div className="product--overview">
                 <div className="product--overview__image">
-                  <img src={FlowerShoe} alt="product overview image" />
+                  <img
+                    src={productDetails?.productImage}
+                    alt="product overview image"
+                  />
                 </div>
                 <div className="product--overview__content">
                   <div>
-                    <h4>Gucci Women's flower Leather heels in black- Blue</h4>
+                    <h4>{productDetails?.productName}</h4>
                   </div>
 
                   <div className="product--rating">
@@ -117,8 +162,8 @@ function ProductDetail() {
 
                   <div className="product--overview__pricing">
                     <div className="product--overview__price">
-                      <p>₦65,700.00</p>
-                      <span>₦70,700.00</span>
+                      <p>{currencyFormatter(productDetails?.price)}</p>
+                      <span>{currencyFormatter(defaultAmount)}</span>
                     </div>
                     <div className="product--overview__discount">
                       <img src={TagIcon} alt="Tag icon" />
@@ -170,19 +215,31 @@ function ProductDetail() {
                       {productInCart ? (
                         <PrimaryButton
                           className="product--color__button"
-                          title="Product is in cart"
+                          title={buttonText}
                           disabled
                         />
                       ) : (
                         <PrimaryButton
                           className="product--color__button"
-                          title="Add to cart"
+                          title={buttonText}
                           onClick={() => addToCart()}
                         />
                       )}
                     </div>
-                    <div className="product--color__wish-button">
-                      <img src={WishListIcon} alt="Add to wishlist icon" />
+                    <div
+                      className="product--color__wish-button"
+                      onClick={() => addToWishList(productDetails?.id)}
+                    >
+                      {wishlist.some(
+                        (item) => item.id === productDetails.id
+                      ) ? (
+                        <img
+                          src={RemoveWishListIcon}
+                          alt="Remove wishlist icon"
+                        />
+                      ) : (
+                        <img src={WishListIcon} alt="Add to wishlist icon" />
+                      )}
                     </div>
                   </div>
 
@@ -399,7 +456,12 @@ function ProductDetail() {
 
                   <div className="product--recentViews__container">
                     {recentProducts.map((product, index) => {
-                      return <RecentProductItem key={index} recentProduct={product} />;
+                      return (
+                        <RecentProductItem
+                          key={index}
+                          recentProduct={product}
+                        />
+                      );
                     })}
                   </div>
                 </div>
