@@ -134,10 +134,10 @@
     gap: 20px;
 
     @media (max-width: 578px) {
-      grid-template-columns: repeat(auto-fill, minmax(166px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
     }
 
-    @media (max-width: 991px) {
+    @media only screen and (min-width: 579px) and (max-width: 991px) {
       grid-template-columns: repeat(2, 1fr);
     }
   }
@@ -275,7 +275,7 @@
           }
         }
 
-        @media (max-width: 991px) {
+        @media only screen and (min-width: 768px) and (max-width: 991px) {
           & .product--card__image img {
             height: 480px;
           }
@@ -303,7 +303,7 @@
           }
         }
 
-        @media (max-width: 991px) {
+        @media only screen and (min-width: 768px) and (max-width: 991px) {
           & .product--card__image img {
             height: 528px;
           }
@@ -342,7 +342,7 @@
           height: 128px;
         }
 
-        @media (max-width: 991px) {
+        @media only screen and (min-width: 768px) and (max-width: 991px) {
           height: 200px;
         }
       }
