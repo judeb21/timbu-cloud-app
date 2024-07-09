@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import NotFoundIcon from "../../assets/illustation/notFound.svg";
 
 type PropType = {
@@ -12,7 +13,8 @@ const NotFound = ({ msg }: PropType) => {
           <img src={NotFoundIcon} alt="Item not found" />
           <h4>{msg}</h4>
           <p>
-            Please visit our product page to select and pick item for purchase{" "}
+            Please visit our <NavLink to="/">product page</NavLink> to select
+            and pick item for purchase{" "}
           </p>
         </div>
       </div>

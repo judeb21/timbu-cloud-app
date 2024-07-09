@@ -9,6 +9,10 @@
     &-group {
       display: flex;
       gap: 16px;
+
+      @media (max-width: 578px) {
+        flex-direction: column;
+      }
     }
   }
 

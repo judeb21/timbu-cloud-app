@@ -1,3 +1,4 @@
+import currencyFormatter from "../../helpers/currencyFormatter";
 import { RecentProducts } from "../../products";
 
 interface ProductProp {
@@ -7,11 +8,11 @@ interface ProductProp {
 const RecentProductItem = ({ recentProduct }: ProductProp) => {
   const {
     productName,
-    productPrice,
     productImage,
     productCategory,
     productTag,
     productTotalReview,
+    price,
   } = recentProduct;
 
   return (
@@ -26,7 +27,7 @@ const RecentProductItem = ({ recentProduct }: ProductProp) => {
             <span>{productTag}</span>
             <span>{productCategory}</span>
           </p>
-          <h4>{productPrice}</h4>
+          <h4>{currencyFormatter(price)}</h4>
           <div className="product--recentViews__card-rate">
             <svg
               width="72"
