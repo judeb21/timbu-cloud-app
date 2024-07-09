@@ -854,6 +854,11 @@
       column-gap: 65px;
     }
 
+    @media (min-width: 1199px) {
+      margin-top: 40px;
+      column-gap: 30px;
+    }
+
     &__container {
       width: 100%;
       flex: 0 0 741px;
