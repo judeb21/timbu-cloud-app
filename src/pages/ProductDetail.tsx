@@ -19,6 +19,7 @@ import useWishlist from "../hooks/useWishlist";
 import SearchIcon from "../assets/icons/search-icon.svg";
 import { ProductDetailType, ProductPhotoType } from "../types/productInterface";
 import { timbuGetData } from "../helpers/request";
+import Loader from "../components/ui/Loader";
 
 const organization_id = import.meta.env.VITE_TIMBU_ORG_ID;
 const app_key = import.meta.env.VITE_TIMBU_APP_KEY;
@@ -221,7 +222,7 @@ function ProductDetail() {
             </div>
 
             {pageLoader ? (
-              <div>Loading...</div>
+              <Loader />
             ) : (
               <div className="product--details">
                 <div className="product--overview">

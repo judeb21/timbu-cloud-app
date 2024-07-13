@@ -31,6 +31,7 @@ export const Input = (props: InputProps) => {
     onChange,
     id,
     defaultValue,
+    errorMessage,
   } = props;
 
   return (
@@ -53,6 +54,11 @@ export const Input = (props: InputProps) => {
           defaultValue={defaultValue}
           name={name}
         />
+        {errorMessage && (
+          <p className='error' style={{ color: "#ce5a56" }}>
+            {errorMessage}
+          </p>
+        )}
       </div>
     </div>
   );
