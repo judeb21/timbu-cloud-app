@@ -1,8 +1,8 @@
 {
   "rewrites": [
     {
-      "source": "/proxy/:match*",
-      "destination": "https://api.timbu.cloud/:match*"
+      "source": "/api/:path(.*)",
+      "destination": "https://api.timbu.cloud/:path"
     },
     {
       "source": "/(.*)",
