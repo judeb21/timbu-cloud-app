@@ -216,7 +216,7 @@ function Product() {
                                 <span>{product.categories[0]?.name}</span>
                               </p>
                               <h4>
-                                {currencyFormatter(product?.current_price)}
+                                {currencyFormatter(product?.description)}
                               </h4>
                             </div>
                           </div>

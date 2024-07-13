@@ -28,7 +28,7 @@ export interface ProductCategoryTyoe {
 }
 
 export interface Currency {
-    NGN: Array<number | undefined>;
+  NGN: Array<number>;
 }
 
 export interface ProductType {

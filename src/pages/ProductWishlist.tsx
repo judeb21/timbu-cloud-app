@@ -73,7 +73,7 @@ function ProductWishlist() {
                               <span>Best sellers</span>
                               <span>{product.categories[0].name}</span>
                             </p>
-                            <h4>{currencyFormatter(product.current_price)}</h4>
+                            <h4>{currencyFormatter(product?.description)}</h4>
                           </div>
                         </div>
                         <button

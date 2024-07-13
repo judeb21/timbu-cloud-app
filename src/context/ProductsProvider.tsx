@@ -62,7 +62,7 @@ const useProductContext = (initProductState: ProductStateType) => {
     getProducts().then((products) => {
       setProductResponse(products);
       setProducts(products?.items.map((product) => {
-        return { ...product, current_price: product?.current_price[0]?.NGN[0] as number } /* eslint-disable  @typescript-eslint/no-explicit-any */
+        return { ...product }
       }));
       setPageLoading(false);
       setTotalPagination(Math.ceil(products.total / products.size));
@@ -90,7 +90,7 @@ const useProductContext = (initProductState: ProductStateType) => {
     fetchProducts(payload).then((products) => {
       setProductResponse(products);
       setProducts(products?.items.map((product) => {
-        return { ...product, current_price: product?.current_price[0]?.NGN[0] as number } /* eslint-disable  @typescript-eslint/no-explicit-any */
+        return { ...product, unitPrice: product?.current_price }
       }));
       setPageLoading(false);
       setTotalPagination(Math.ceil(products.total / products.size));

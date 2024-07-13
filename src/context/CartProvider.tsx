@@ -56,7 +56,7 @@ const reducer = (
 
     const { id, quantity } = action.payload;
 
-    const itemExists: ProductDetailType | undefined = state.cart.find(
+    const itemExists: ProductDetailType | ProductType | undefined = state.cart.find(
       (item) => item.id === id
     );
 
@@ -64,7 +64,7 @@ const reducer = (
       throw new Error("Item must exist in order to update quantity");
     }
 
-    const updatedItem: ProductDetailType = { ...itemExists, quantity };
+    const updatedItem: ProductDetailType = { ...itemExists, quantity, current_price: itemExists?.current_price as number};
 
     const filteredCart: ProductType[] = state.cart.filter(
       (item) => item.id !== id
@@ -92,7 +92,7 @@ const useCartContext = (initCartState: CartStateType) => {
   }, 0);
 
   const totalPrice = state.cart.reduce((previousValue, cartItem) => {
-    return previousValue + Number(cartItem.quantity) * cartItem.current_price;
+    return previousValue + Number(cartItem.quantity) * Number(cartItem.current_price);
   }, 0);
 
   const cart = state.cart.sort((a, b) => {
