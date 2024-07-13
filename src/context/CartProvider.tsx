@@ -142,14 +142,14 @@ const initCartContextState: UseCartContextType = {
 export const CartContext =
   createContext<UseCartContextType>(initCartContextState);
 
-type ChildrenType = { children?: ReactElement | ReactElement[] }
+type ChildrenType = { children?: ReactElement | ReactElement[] };
 
 export const CartProvider = ({ children }: ChildrenType): ReactElement => {
   return (
-      <CartContext.Provider value={useCartContext(initCartState)}>
-          {children}
-      </CartContext.Provider>
-  )
-}
+    <CartContext.Provider value={useCartContext(initCartState)}>
+      {children}
+    </CartContext.Provider>
+  );
+};
 
-export default CartContext 
+export default CartContext;

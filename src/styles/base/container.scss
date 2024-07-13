@@ -29,6 +29,8 @@
 @media (min-width: 992px) {
   .container-lg, .container-md, .container-sm, .container {
     max-width: 960px;
+    padding-left: 3rem;
+    padding-right: 3rem;
   }
 }
 

@@ -1,33 +1,34 @@
+import { NavLink } from "react-router-dom";
 import currencyFormatter from "../../helpers/currencyFormatter";
-import { RecentProducts } from "../../products";
+import { recentlyViewedProduct } from "../../pages/ProductDetail";
 
 interface ProductProp {
-  recentProduct: RecentProducts;
+  recentProduct: recentlyViewedProduct;
 }
 
 const RecentProductItem = ({ recentProduct }: ProductProp) => {
   const {
+    id,
     productName,
     productImage,
     productCategory,
-    productTag,
-    productTotalReview,
-    price,
+    productPrice,
+    totalReview,
   } = recentProduct;
 
   return (
     <>
       <div className="product--recentViews__card">
-        <div className="product--recentViews__card--image">
-          <img src={productImage} alt="Recent viewed product image" />
-        </div>
+        <NavLink to={`/product-details/${id}`} className="product--recentViews__card--image">
+          <img src={`https://api.timbu.cloud/images/${productImage}`} alt="Recent viewed product image" />
+        </NavLink>
         <div className="product--recentViews__card-body">
           <h5>{productName}</h5>
           <p>
-            <span>{productTag}</span>
+            <span>Best sellers</span>
             <span>{productCategory}</span>
           </p>
-          <h4>{currencyFormatter(price)}</h4>
+          <h4>{currencyFormatter(productPrice)}</h4>
           <div className="product--recentViews__card-rate">
             <svg
               width="72"
@@ -61,7 +62,7 @@ const RecentProductItem = ({ recentProduct }: ProductProp) => {
                 fill="#D5DADD"
               />
             </svg>
-            <span>{productTotalReview}</span>
+            <span>{totalReview}</span>
           </div>
         </div>
       </div>
