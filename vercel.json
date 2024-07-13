@@ -1,6 +1,10 @@
 {
   "rewrites": [
     {
+      "source": "/proxy/:match*",
+      "destination": "https://api.timbu.cloud/:match*"
+    },
+    {
       "source": "/(.*)",
       "destination": "/"
     }

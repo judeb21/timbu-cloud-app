@@ -66,7 +66,7 @@ function ProductCheckout() {
               </div>
             </div>
 
-            <div className="product--checkout">
+            <form className="product--checkout">
               {/* contact */}
               <div className="product--checkout__contact">
                 <h5>Contact Information</h5>
@@ -319,7 +319,7 @@ function ProductCheckout() {
                   />
                 </div>
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>
