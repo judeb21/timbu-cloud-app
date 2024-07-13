@@ -99,6 +99,13 @@
 .product {
   position: relative;
 
+  &--page__loading {
+    max-width: 300px;
+    width: 100%;
+    text-align: center;
+    margin: 30px auto;
+  }
+
   &--page__error {
     max-width: 670px;
     width: 100%;

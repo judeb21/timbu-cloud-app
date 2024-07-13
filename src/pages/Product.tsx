@@ -9,6 +9,7 @@ import currencyFormatter from "../helpers/currencyFormatter";
 import { ProductType } from "../types/productInterface";
 import { useState } from "react";
 import { productPayload } from "../context/ProductsProvider";
+import Loader from "../components/ui/Loader";
 
 function Product() {
   const navigate = useNavigate();
@@ -190,7 +191,7 @@ function Product() {
 
             {/* Product listing */}
             {pageLoading ? (
-              <div>...Loading</div>
+              <Loader />
             ) : (
               <div>
                 <div className="product--listing">
