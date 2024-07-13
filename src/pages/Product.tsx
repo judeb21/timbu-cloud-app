@@ -21,8 +21,8 @@ function Product() {
     getPaginatedProducts,
   } = useProducts();
   const [payload, setPayload] = useState<productPayload>({
-    category_id: '',
-    searchValue: '',
+    category_id: "",
+    searchValue: "",
     page: 1,
   });
 
@@ -69,19 +69,19 @@ function Product() {
     let nextPage = 1;
     if (pageIndex === "next") {
       nextPage = Number(payload.page) + 1;
-      setPayload({...payload, page: nextPage});
-      getPaginatedProducts({...payload, page: nextPage});
+      setPayload({ ...payload, page: nextPage });
+      getPaginatedProducts({ ...payload, page: nextPage });
       return;
     }
     if (pageIndex === "prev") {
       nextPage = Number(payload.page) - 1;
-      setPayload({...payload, page: nextPage});
-      getPaginatedProducts({...payload, page: nextPage});
+      setPayload({ ...payload, page: nextPage });
+      getPaginatedProducts({ ...payload, page: nextPage });
       return;
     }
-    setPayload({...payload, page: nextPage = Number(pageIndex)});
+    setPayload({ ...payload, page: (nextPage = Number(pageIndex)) });
     nextPage = Number(pageIndex);
-    getPaginatedProducts({...payload, page: pageIndex as number});
+    getPaginatedProducts({ ...payload, page: pageIndex as number });
     return;
   };
 
@@ -216,9 +216,7 @@ function Product() {
                                 <span>{product.categories[0]?.name}</span>
                               </p>
                               <h4>
-                                {currencyFormatter(
-                                  product.current_price[0]?.NGN[0]
-                                )}
+                                {currencyFormatter(product?.current_price)}
                               </h4>
                             </div>
                           </div>

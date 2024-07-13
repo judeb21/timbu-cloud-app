@@ -27,6 +27,10 @@ export interface ProductCategoryTyoe {
   parents: [];
 }
 
+export interface Currency {
+    NGN: Array<number | undefined>;
+}
+
 export interface ProductType {
   name: string;
   description: string;
@@ -48,17 +52,14 @@ export interface ProductType {
   last_updated: string;
   user_id: string;
   photos: Array<ProductPhotoType>;
-  current_price: [
-    {
-      NGN: Array<number | undefined>;
-    }
-  ];
+  current_price: number;
   is_deleted: boolean;
   available_quantity: number | string;
   selling_price: number | string;
   discounted_price: number | string;
   buying_price: number | string;
   extra_infos: [];
+  quantity?: number;
 }
 
 export interface ProductListArray {
@@ -99,4 +100,5 @@ export interface ProductDetailType {
   discounted_price: number | string;
   buying_price: number | string;
   extra_infos: [];
+  quantity?: number;
 }

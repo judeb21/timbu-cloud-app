@@ -61,7 +61,9 @@ const useProductContext = (initProductState: ProductStateType) => {
   useEffect(() => {
     getProducts().then((products) => {
       setProductResponse(products);
-      setProducts(products?.items);
+      setProducts(products?.items.map((product) => {
+        return { ...product, current_price: product?.current_price[0]?.NGN[0] as number }
+      }));
       setPageLoading(false);
       setTotalPagination(Math.ceil(products.total / products.size));
     });
@@ -87,7 +89,9 @@ const useProductContext = (initProductState: ProductStateType) => {
   const getPaginatedProducts = (payload: productPayload) => {
     fetchProducts(payload).then((products) => {
       setProductResponse(products);
-      setProducts(products?.items);
+      setProducts(products?.items.map((product) => {
+        return { ...product, current_price: product?.current_price[0]?.NGN[0] as number }
+      }));
       setPageLoading(false);
       setTotalPagination(Math.ceil(products.total / products.size));
     });

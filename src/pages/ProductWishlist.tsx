@@ -3,8 +3,9 @@ import "./pages.scss";
 import { NavLink, useNavigate } from "react-router-dom";
 import NotFound from "../components/ui/NotFound";
 import useWishlist from "../hooks/useWishlist";
-import { RecentProducts } from "../products";
 import SearchIcon from "../assets/icons/search-icon.svg";
+import { ProductType } from "../types/productInterface";
+import currencyFormatter from "../helpers/currencyFormatter";
 
 function ProductWishlist() {
   const { remit, WISHLIST_REDUCER_ACTIONS, wishlist } = useWishlist();
@@ -14,11 +15,11 @@ function ProductWishlist() {
     return navigate(`/`);
   };
 
-  const goToProduct = (id: number) => {
+  const goToProduct = (id: string) => {
     return navigate(`/product-details/${id}`);
   };
 
-  const removeWishListItem = (item: RecentProducts) =>
+  const removeWishListItem = (item: ProductType) =>
     remit({
       type: WISHLIST_REDUCER_ACTIONS.REMOVE,
       payload: item,
@@ -61,18 +62,18 @@ function ProductWishlist() {
                             className="product--card__image"
                           >
                             <img
-                              src={product?.productImage}
+                              src={`https://api.timbu.cloud/images/${product?.photos[0]?.url}`}
                               alt="Product image"
                               onClick={() => goToProduct(product.id)}
                             />
                           </NavLink>
                           <div className="product--card__content">
-                            <h5>{product.productName}</h5>
+                            <h5>{product.name}</h5>
                             <p>
-                              <span>{product.productTag}</span>
-                              <span>{product.productCategory}</span>
+                              <span>Best sellers</span>
+                              <span>{product.categories[0].name}</span>
                             </p>
-                            <h4>{product.productPrice}</h4>
+                            <h4>{currencyFormatter(product.current_price)}</h4>
                           </div>
                         </div>
                         <button

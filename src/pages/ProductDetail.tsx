@@ -11,14 +11,13 @@ import PrimaryButton from "../components/ui/Button/PrimaryButton";
 import Avatar from "../assets/products/Avatar.png";
 import PurchasedProduct from "../assets/products/referenceBuy.png";
 import RefreshIcon from "../assets/icons/refresh-icon.svg";
-import { RecentProducts, allProducts } from "../products";
 import RecentProductItem from "../components/ui/RecentProductITems";
 import useCart from "../hooks/useCart";
 import { useEffect, useState } from "react";
 import currencyFormatter from "../helpers/currencyFormatter";
 import useWishlist from "../hooks/useWishlist";
 import SearchIcon from "../assets/icons/search-icon.svg";
-import { ProductDetailType, ProductPhotoType, ProductType } from "../types/productInterface";
+import { ProductDetailType, ProductPhotoType } from "../types/productInterface";
 import { timbuGetData } from "../helpers/request";
 
 const organization_id = import.meta.env.VITE_TIMBU_ORG_ID;
@@ -48,12 +47,8 @@ function ProductDetail() {
   >([]);
 
   const addToCart = () => {
-    const product = allProducts.find(
-      (item) => item.id === Number(id)
-    ) as RecentProducts;
-
-    const productisInCart = cart.findIndex((item) => item.id === Number(id));
-    if (productisInCart === 0) {
+    const productisInCart = cart.some((item) => item.id === id);
+    if (productisInCart) {
       setProductInCart(true);
       setButtonText("Product is in cart");
       return;
