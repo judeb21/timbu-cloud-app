@@ -5,7 +5,6 @@ import "../styles/component/input-field.scss";
 import { Input } from "../components/ui/Input/Input";
 import PrimaryButton from "../components/ui/Button/PrimaryButton";
 import useCart from "../hooks/useCart";
-import { RecentProducts } from "../products";
 import currencyFormatter from "../helpers/currencyFormatter";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { CountryCode, E164Number } from "libphonenumber-js/core";
@@ -14,6 +13,7 @@ import PhoneInput, {
   getCountryCallingCode,
 } from "react-phone-number-input/input";
 import CountryFlag from "react-country-flag";
+import { ProductDetailType } from "../types/productInterface";
 
 function ProductCheckout() {
   const { dispatch, REDUCER_ACTIONS, cart, totalPrice } = useCart();
@@ -35,7 +35,7 @@ function ProductCheckout() {
     return navigate(`/`);
   };
 
-  const onRemoveFromCart = (item: RecentProducts) =>
+  const onRemoveFromCart = (item: ProductDetailType) =>
     dispatch({
       type: REDUCER_ACTIONS.REMOVE,
       payload: item,
@@ -255,19 +255,19 @@ function ProductCheckout() {
                         <div className="product--cart__heading" key={index}>
                           <div className="product--cart__heading-image">
                             <img
-                              src={item?.productImage}
+                              src={`https://api.timbu.cloud/images/${item?.photos[0]?.url}`}
                               alt="cart product item"
                             />
                           </div>
                           <div className="product--cart__heading-display">
                             <span className="product--cart__itemCat">
-                              {item.productCategory}
+                              {item.categories[0]?.name}
                             </span>
                             <p className="product--cart__itemName">
-                              {item.productName}
+                              {item.name}
                             </p>
                             <p className="product--cart__itemPrice">
-                              {currencyFormatter(item.price)}
+                              {currencyFormatter(item.current_price)}
                             </p>
                           </div>
                           <div

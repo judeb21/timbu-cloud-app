@@ -1,7 +1,7 @@
 import { ReactElement, createContext, useMemo, useReducer } from "react";
-import { RecentProducts } from "../products";
+import { ProductType } from "../types/productInterface";
 
-type WishlistStateType = { wishlist: Array<RecentProducts> };
+type WishlistStateType = { wishlist: Array<ProductType> };
 
 const initWishlistState: WishlistStateType = { wishlist: [] };
 
@@ -14,7 +14,7 @@ export type ReducerActionType = typeof REDUCER_ACTION_TYPE;
 
 export type ReducerAction = {
   type: string;
-  payload?: RecentProducts;
+  payload?: ProductType;
 };
 
 const reducer = (
@@ -24,37 +24,12 @@ const reducer = (
   if (action.type === REDUCER_ACTION_TYPE.ADD) {
     if (!action.payload) throw new Error("payload is mission in ADD action");
 
-    const {
-      id,
-      productName,
-      price,
-      productCategory,
-      productImage,
-      productTotalReview,
-      productTag,
-      productPrice
-    } = action.payload;
-
-    const filteredCart: RecentProducts[] = state.wishlist.filter(
-      (item) => item.id !== id
-    );
+    const list: ProductType[] = state.wishlist;
+    list.push(action.payload);
 
     return {
       ...state,
-      wishlist: [
-        ...filteredCart,
-        {
-          id,
-          productName,
-          price,
-          productCategory,
-          quantity: 1,
-          productTotalReview,
-          productImage,
-          productTag,
-          productPrice
-        },
-      ],
+      wishlist: [...list],
     };
   }
 
@@ -63,11 +38,11 @@ const reducer = (
 
     const { id } = action.payload;
 
-    const filteredCart: RecentProducts[] = state.wishlist.filter(
+    const filteredList: ProductType[] = state.wishlist.filter(
       (item) => item.id !== id
     );
 
-    return { ...state, wishlist: [...filteredCart] };
+    return { ...state, wishlist: [...filteredList] };
   }
 
   throw new Error("Unknown reducer action type");
@@ -80,14 +55,12 @@ const useWishlistContext = (initWishlistState: WishlistStateType) => {
     return REDUCER_ACTION_TYPE;
   }, []);
 
-  const totalWishlistItems: number = state.wishlist.reduce((prevValue, cartItem) => {
-    return prevValue + Number(cartItem.quantity);
-  }, 0);
+  const totalWishlistItems: number = state.wishlist.length;
 
   const wishlist = state.wishlist.sort((a, b) => {
     const itemA = a.id;
     const itemB = b.id;
-    return itemA - itemB;
+    return itemA < itemB ? -1 : itemA > itemB ? 1 : 0;
   });
 
   return { remit, WISHLIST_REDUCER_ACTIONS, totalWishlistItems, wishlist };

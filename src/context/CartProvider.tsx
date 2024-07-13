@@ -1,7 +1,7 @@
 import { ReactElement, createContext, useMemo, useReducer } from "react";
-import { RecentProducts } from "../products";
+import { ProductDetailType, ProductType } from "../types/productInterface";
 
-type CartStateType = { cart: Array<RecentProducts> };
+type CartStateType = { cart: Array<ProductType> };
 
 const initCartState: CartStateType = { cart: [] };
 
@@ -16,7 +16,7 @@ export type ReducerActionType = typeof REDUCER_ACTION_TYPE;
 
 export type ReducerAction = {
   type: string;
-  payload?: RecentProducts;
+  payload?: ProductDetailType;
 };
 
 const reducer = (
@@ -26,38 +26,13 @@ const reducer = (
   if (action.type === REDUCER_ACTION_TYPE.ADD) {
     if (!action.payload) throw new Error("payload is mission in ADD action");
 
-    const {
-      id,
-      productName,
-      price,
-      productCategory,
-      productImage,
-      productTotalReview,
-    } = action.payload;
-
-    const filteredCart: RecentProducts[] = state.cart.filter(
-      (item) => item.id !== id
-    );
-
-    const itemExists: RecentProducts | undefined = state.cart.find(
-      (item) => item.id === id
-    );
-
-    const qty: number = itemExists ? Number(itemExists.quantity) + 1 : 1;
+    const list: ProductType[] = state.cart;
+    list.push(action.payload);
 
     return {
       ...state,
       cart: [
-        ...filteredCart,
-        {
-          id,
-          productName,
-          price,
-          productCategory,
-          quantity: qty,
-          productTotalReview,
-          productImage,
-        },
+        ...list,
       ],
     };
   }
@@ -67,7 +42,7 @@ const reducer = (
 
     const { id } = action.payload;
 
-    const filteredCart: RecentProducts[] = state.cart.filter(
+    const filteredCart: ProductType[] = state.cart.filter(
       (item) => item.id !== id
     );
 
@@ -81,7 +56,7 @@ const reducer = (
 
     const { id, quantity } = action.payload;
 
-    const itemExists: RecentProducts | undefined = state.cart.find(
+    const itemExists: ProductDetailType | ProductType | undefined = state.cart.find(
       (item) => item.id === id
     );
 
@@ -89,9 +64,9 @@ const reducer = (
       throw new Error("Item must exist in order to update quantity");
     }
 
-    const updatedItem: RecentProducts = { ...itemExists, quantity };
+    const updatedItem: ProductDetailType = { ...itemExists, quantity, current_price: itemExists?.current_price as number};
 
-    const filteredCart: RecentProducts[] = state.cart.filter(
+    const filteredCart: ProductType[] = state.cart.filter(
       (item) => item.id !== id
     );
 
@@ -117,13 +92,13 @@ const useCartContext = (initCartState: CartStateType) => {
   }, 0);
 
   const totalPrice = state.cart.reduce((previousValue, cartItem) => {
-    return previousValue + Number(cartItem.quantity) * cartItem.price;
+    return previousValue + Number(cartItem.quantity) * Number(cartItem.current_price);
   }, 0);
 
   const cart = state.cart.sort((a, b) => {
     const itemA = a.id;
     const itemB = b.id;
-    return itemA - itemB;
+    return itemA < itemB ? -1 : itemA > itemB ? 1 : 0;
   });
 
   return { dispatch, REDUCER_ACTIONS, totalItems, totalPrice, cart };
@@ -142,14 +117,14 @@ const initCartContextState: UseCartContextType = {
 export const CartContext =
   createContext<UseCartContextType>(initCartContextState);
 
-type ChildrenType = { children?: ReactElement | ReactElement[] }
+type ChildrenType = { children?: ReactElement | ReactElement[] };
 
 export const CartProvider = ({ children }: ChildrenType): ReactElement => {
   return (
-      <CartContext.Provider value={useCartContext(initCartState)}>
-          {children}
-      </CartContext.Provider>
-  )
-}
+    <CartContext.Provider value={useCartContext(initCartState)}>
+      {children}
+    </CartContext.Provider>
+  );
+};
 
-export default CartContext 
+export default CartContext;
