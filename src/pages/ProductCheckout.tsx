@@ -14,6 +14,18 @@ import PhoneInput, {
 } from "react-phone-number-input/input";
 import CountryFlag from "react-country-flag";
 import { ProductDetailType } from "../types/productInterface";
+// import { useForm, SubmitHandler } from "react-hook-form";
+
+
+// interface CheckoutForm {
+//   firstName: string;
+//   lastName: string;
+//   email: string;
+//   address: string;
+//   phone: string;
+//   state: string;
+//   city: string;
+// }
 
 function ProductCheckout() {
   const { dispatch, REDUCER_ACTIONS, cart, totalPrice } = useCart();
@@ -23,6 +35,27 @@ function ProductCheckout() {
   const [country, setCountry] = useState<CountryCode | string>("NG");
 
   const estShppingFee = 4510;
+
+  // const { register, handleSubmit, formState: { errors } } = useForm<CheckoutForm>({
+  //   mode: "onChange"
+  // });
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    goToCompleteORder();
+  };
+
+  // const handleSubmit = (
+  //   values: FormikValues,
+  //   { setSubmitting }: FormikHelpers<FormValues>,
+  //   e?: React.FormEvent<HTMLFormElement>
+  // ) => {
+  //   e?.preventDefault;
+  //   setTimeout(() => {
+  //     console.log(values);
+  //     setSubmitting(false);
+  //     goToCompleteORder();
+  //   }, 300);
+  // };
 
   const goToCompleteORder = () => {
     dispatch({
@@ -66,7 +99,10 @@ function ProductCheckout() {
               </div>
             </div>
 
-            <form className="product--checkout">
+            <form
+              className="product--checkout"
+              onSubmit={onSubmit}
+            >
               {/* contact */}
               <div className="product--checkout__contact">
                 <h5>Contact Information</h5>
@@ -75,11 +111,10 @@ function ProductCheckout() {
                   <Input
                     label="Email address"
                     type="email"
-                    name="email"
                     id="email"
                     placeholder="Enter your email address"
-                    required={false}
-                    value=""
+                    required={true}
+                    name="email"
                   />
                 </div>
 
@@ -93,11 +128,10 @@ function ProductCheckout() {
                         <Input
                           label="First Name"
                           type="text"
-                          name="fName"
                           id="fName"
                           placeholder="Enter your First Name"
-                          required={false}
-                          value=""
+                          required={true}
+                          name="firstName"
                         />
                       </div>
 
@@ -105,11 +139,11 @@ function ProductCheckout() {
                         <Input
                           label="Last Name"
                           type="text"
-                          name="lName"
                           id="lName"
                           placeholder="Enter your Last Name"
-                          required={false}
+                          required={true}
                           value=""
+                          name="lastName"
                         />
                       </div>
                     </div>
@@ -142,7 +176,9 @@ function ProductCheckout() {
                             international
                             country={country as CountryCode}
                             value={value}
+                            name="phone"
                             onChange={setValue}
+                            required={true}
                             placeholder="Enter phone number"
                           />
                         </div>
@@ -153,11 +189,10 @@ function ProductCheckout() {
                       <Input
                         label="Address"
                         type="text"
-                        name="address"
                         id="address"
                         placeholder="Enter your Address"
-                        required={false}
-                        value=""
+                        required={true}
+                        name="address"
                       />
                     </div>
 
@@ -167,8 +202,14 @@ function ProductCheckout() {
                           <label htmlFor="state" className="form-label">
                             State
                           </label>
-                          <select name="" id="" className="form-select">
+                          <select
+                            id=""
+                            required={true}
+                            className="form-select"
+                            name="state"
+                          >
                             <option value="__Select state">Select State</option>
+                            <option value="Lagos">Lagos</option>
                           </select>
                         </div>
                       </div>
@@ -177,11 +218,10 @@ function ProductCheckout() {
                         <Input
                           label="City"
                           type="text"
-                          name="city"
                           id="city"
                           placeholder="Enter your city"
-                          required={false}
-                          value=""
+                          required={true}
+                          name="city"
                         />
                       </div>
                     </div>
@@ -315,7 +355,7 @@ function ProductCheckout() {
                   <PrimaryButton
                     className="product--color__button"
                     title="Confirm Payment"
-                    onClick={() => goToCompleteORder()}
+                    type="submit"
                   />
                 </div>
               </div>
