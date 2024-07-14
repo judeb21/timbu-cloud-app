@@ -34,6 +34,8 @@ function Product() {
   const [categories, setCategories] = useState<Array<ProductCategoryTyoe>>([]);
   const [catIsLoading, setCatIsLoading] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedCatName, setSelectedCatName] = useState("All category");
+  const [toggleDrop, setToggleDrop] = useState(false);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -115,18 +117,25 @@ function Product() {
     return;
   };
 
-  const handleCategory = (id: string) => {
-    console.log(id);
+  const handleCategory = (id: string, name: string = '') => {
+    setToggleDrop(false);
     if (id === "all") {
       setSelectedCategory("");
+      setSelectedCatName("All category");
       setPayload({ ...payload, category_id: '' });
       getPaginatedProducts({ ...payload, category_id: '' });
       return;
     }
+    setSelectedCatName(name);
     setPayload({ ...payload, category_id: id });
     getPaginatedProducts({ ...payload, category_id: id });
     return setSelectedCategory(id);
   };
+
+  const toggleDropDown = () => {
+    if (toggleDrop) return setToggleDrop(false);
+    return setToggleDrop(true);
+  }
 
   return (
     <>
@@ -149,7 +158,7 @@ function Product() {
                       return (
                         <>
                           <p
-                            onClick={() => handleCategory(cat.id)}
+                            onClick={() => handleCategory(cat.id, cat.name)}
                             className={
                               selectedCategory === cat.id ? "active" : ""
                             }
@@ -208,23 +217,46 @@ function Product() {
                 <span>Filter</span>
               </div>
 
-              <div className="mobile--categories">
-                <span>All Category</span>
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M19 8.5C19 8.5 14.856 15.5 12 15.5C9.145 15.5 5 8.5 5 8.5"
-                    stroke="black"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
+              <div style={{ position: "relative" }}>
+                <div tabIndex={0} onClick={toggleDropDown} onBlur={toggleDropDown} className="mobile--categories">
+                  <span>{selectedCatName}</span>
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M19 8.5C19 8.5 14.856 15.5 12 15.5C9.145 15.5 5 8.5 5 8.5"
+                      stroke="black"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </div>
+
+                <div>
+                  <div className={`mobile--categories__drop ${toggleDrop && 'active'}`}>
+                    <p onClick={() => handleCategory("all")}>All Category</p>
+                    {categories.map((cat, index) => {
+                      return (
+                        <>
+                          <p
+                            onClick={() => handleCategory(cat.id, cat.name)}
+                            className={
+                              selectedCategory === cat.id ? "active" : ""
+                            }
+                            key={index}
+                          >
+                            {cat?.name}
+                          </p>
+                        </>
+                      );
+                    })}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
