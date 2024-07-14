@@ -79,7 +79,6 @@
 
     &__wishlist,
     &__cart {
-
       & img {
         @media (max-width: 360px) {
           height: 30px;
@@ -269,7 +268,7 @@
       line-height: 21.79px;
       color: #fdfefb;
       font-weight: 500;
-      transition: all .5s;
+      transition: all 0.5s;
     }
   }
 
@@ -289,7 +288,7 @@
       line-height: 21.79px;
       color: #aa4a41;
       font-weight: 600;
-      transition: all .5s;
+      transition: all 0.5s;
     }
   }
 }
@@ -312,7 +311,6 @@
   &--filters {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     max-width: 610px;
     width: 100%;
   }
@@ -341,7 +339,8 @@
     gap: 10px;
     padding-left: 20px;
 
-    & span {
+    & span,
+    & p {
       color: $grey-color1;
       font-size: 14px;
       font-weight: 400;
@@ -349,6 +348,35 @@
       padding: 8px;
       cursor: pointer;
       position: relative;
+      overflow: hidden;
+      text-transform: capitalize;
+      position: relative;
+      transition: all 0.3s ease-in-out;
+
+      &:before {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        top: 100%;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #aa4a41;
+        height: 2px;
+        width: 2px;
+        transition: all 0.3s ease-in-out;
+      }
+
+      &:hover {
+        color: #aa4a41;
+        &:before {
+          top: 0;
+        }
+      }
+
+      &.active {
+        color: #aa4a41;
+      }
     }
   }
 
@@ -374,7 +402,7 @@
       line-height: 21.79px;
       color: #fdfefb;
       font-weight: 500;
-      transition: all .5s;
+      transition: all 0.5s;
     }
 
     &:before {
@@ -386,7 +414,7 @@
       right: 0;
       bottom: 100%;
       background: #fff5f4;
-      transition: all .3s ease-in-out;
+      transition: all 0.3s ease-in-out;
     }
 
     &:hover {
@@ -422,7 +450,7 @@
       line-height: 21.79px;
       color: #aa4a41;
       font-weight: 600;
-      transition: all .5s;
+      transition: all 0.5s;
     }
 
     &:before {
@@ -434,7 +462,7 @@
       right: 0;
       bottom: 0;
       background: #aa4a41;
-      transition: all .3s ease-in-out;
+      transition: all 0.3s ease-in-out;
     }
 
     &:hover {
@@ -468,7 +496,7 @@
   @media (min-width: 992px) {
     padding: 62px;
   }
-  
+
   @media (min-width: 1200px) {
     padding: 62px 0px;
   }

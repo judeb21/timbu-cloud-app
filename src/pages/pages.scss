@@ -104,6 +104,11 @@
     width: 100%;
     text-align: center;
     margin: 30px auto;
+
+    & img {
+      height: 65px;
+      width: 65px;
+    }
   }
 
   &--page__error {
