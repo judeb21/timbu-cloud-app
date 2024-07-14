@@ -4,14 +4,14 @@ import "../../../styles/component/input-field.scss";
 interface InputProps {
   type: "text" | "number" | "email" | "password" | "tel" | "url";
   label: string;
-  value: string | number | undefined;
+  value?: string | number | undefined;
   name: string;
   placeholder: string;
   error?: boolean;
   errorMessage?: string;
   disabled?: boolean;
   readonly?: boolean;
-  required: boolean;
+  required?: boolean;
   id: string;
   defaultValue?: string | number;
   inputType?: string;
