@@ -21,10 +21,12 @@ export interface ProductCategoryTyoe {
   id: string;
   parent_id: string;
   url_slug: string;
-  is_deleted: boolean;
+  is_deleted?: boolean;
   date_created: string;
-  subcategories: [];
-  parents: [];
+  subcategories?: [];
+  parents?: [];
+  entity_items?: [];
+  photos?: [],
 }
 
 export interface Currency {

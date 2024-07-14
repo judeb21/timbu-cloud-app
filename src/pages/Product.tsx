@@ -6,10 +6,15 @@ import useWishlist from "../hooks/useWishlist";
 import SearchIcon from "../assets/icons/search-icon.svg";
 import useProducts from "../hooks/useProducts";
 import currencyFormatter from "../helpers/currencyFormatter";
-import { ProductType } from "../types/productInterface";
-import { useState } from "react";
+import { ProductCategoryTyoe, ProductType } from "../types/productInterface";
+import { useEffect, useState } from "react";
 import { productPayload } from "../context/ProductsProvider";
 import Loader from "../components/ui/Loader";
+import { timbuGetData } from "../helpers/request";
+
+const organization_id = import.meta.env.VITE_TIMBU_ORG_ID;
+const app_key = import.meta.env.VITE_TIMBU_APP_KEY;
+const app_id = import.meta.env.VITE_TIMBU_APP_ID;
 
 function Product() {
   const navigate = useNavigate();
@@ -26,6 +31,30 @@ function Product() {
     searchValue: "",
     page: 1,
   });
+  const [categories, setCategories] = useState<Array<ProductCategoryTyoe>>([]);
+  const [catIsLoading, setCatIsLoading] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState("");
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      setCatIsLoading(true);
+      const data = await timbuGetData(
+        `/categories?organization_id=${organization_id}&Appid=${app_id}&Apikey=${app_key}`
+      ).catch((err) => {
+        if (err) {
+          console.log(err?.response?.statusText);
+          setCatIsLoading(false);
+        }
+      });
+
+      return data;
+    };
+
+    fetchCategories().then((category) => {
+      setCategories(category.items);
+      setCatIsLoading(false);
+    });
+  }, []);
 
   const goToProduct = (id: string) => {
     return navigate(`/product-details/${id}`);
@@ -86,6 +115,19 @@ function Product() {
     return;
   };
 
+  const handleCategory = (id: string) => {
+    console.log(id);
+    if (id === "all") {
+      setSelectedCategory("");
+      setPayload({ ...payload, category_id: '' });
+      getPaginatedProducts({ ...payload, category_id: '' });
+      return;
+    }
+    setPayload({ ...payload, category_id: id });
+    getPaginatedProducts({ ...payload, category_id: id });
+    return setSelectedCategory(id);
+  };
+
   return (
     <>
       <div>
@@ -98,14 +140,28 @@ function Product() {
                   <img src={FilterIcon} alt="filter icon" />
                   <span>Filter</span>
                 </div>
-                <div className="subnav--categories">
-                  <span>All Category</span>
-                  <span>Fashion</span>
-                  <span>Books</span>
-                  <span>Electronic</span>
-                  <span>Bags</span>
-                  <span>Phone</span>
-                </div>
+                {catIsLoading ? (
+                  <></>
+                ) : (
+                  <div className="subnav--categories">
+                    <p onClick={() => handleCategory("all")}>All Category</p>
+                    {categories.map((cat, index) => {
+                      return (
+                        <>
+                          <p
+                            onClick={() => handleCategory(cat.id)}
+                            className={
+                              selectedCategory === cat.id ? "active" : ""
+                            }
+                            key={index}
+                          >
+                            {cat?.name}
+                          </p>
+                        </>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
               <div className="subnav--buttons">
                 <div className="subnav--main">
@@ -216,9 +272,7 @@ function Product() {
                                 <span>Best sellers</span>
                                 <span>{product.categories[0]?.name}</span>
                               </p>
-                              <h4>
-                                {currencyFormatter(product?.description)}
-                              </h4>
+                              <h4>{currencyFormatter(product?.description)}</h4>
                             </div>
                           </div>
                           <button
