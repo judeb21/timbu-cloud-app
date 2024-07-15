@@ -34,6 +34,11 @@ const reducer = (
         wishlist: [...list],
       };
     }
+
+    return {
+      ...state,
+      wishlist: [],
+    };
   }
 
   if (action.type === REDUCER_ACTION_TYPE.ADD) {
