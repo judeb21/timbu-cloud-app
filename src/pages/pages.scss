@@ -1315,7 +1315,20 @@
 }
 
 .color {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   border-radius: 100%;
+
+  &.primary {
+    background: $main-color;
+  }
+  &.orange {
+    background: #ea580c;
+  }
+  &.indigo {
+    background: #6366f1;
+  }
+  &.blue-grey {
+    background: #334155;
+  }
 }
