@@ -83,6 +83,7 @@ const CartItem = ({ item, dispatch, REDUCER_ACTIONS }: PropsType) => {
             <div className="product--cart__color">
               <div className="product--cart__color-preview">
                 <img src={BlackColor} alt="color variation" />
+                <div className={`color ${item.color}`}></div>
               </div>
               <img src={RightCaret} alt="right caret" />
             </div>
