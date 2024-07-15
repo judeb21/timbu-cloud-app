@@ -10,6 +10,7 @@ const REDUCER_ACTION_TYPE = {
   REMOVE: "REMOVE",
   SUBMIT: "SUBMIT",
   QUANTITY: "QUANTITY",
+  REFRESH: "REFRESH",
 };
 
 export type ReducerActionType = typeof REDUCER_ACTION_TYPE;
@@ -23,11 +24,31 @@ const reducer = (
   state: CartStateType,
   action: ReducerAction
 ): CartStateType => {
+  if (action.type === REDUCER_ACTION_TYPE.REFRESH) {
+    const localWishlistStr = localStorage.getItem("timbu-cart");
+    const localWishlist: ProductType[] = JSON.parse(localWishlistStr as string);
+
+    if (localWishlist !== null) {
+      const list: ProductType[] = localWishlist;
+
+      return {
+        ...state,
+        cart: [...list],
+      };
+    }
+
+    return {
+      ...state,
+      cart: [],
+    };
+  }
+  
   if (action.type === REDUCER_ACTION_TYPE.ADD) {
     if (!action.payload) throw new Error("payload is mission in ADD action");
 
     const list: ProductType[] = state.cart;
     list.push(action.payload);
+    localStorage.setItem('timbu-cart', JSON.stringify(list));
 
     return {
       ...state,
@@ -45,6 +66,8 @@ const reducer = (
     const filteredCart: ProductType[] = state.cart.filter(
       (item) => item.id !== id
     );
+
+    localStorage.setItem('timbu-cart', JSON.stringify(filteredCart));
 
     return { ...state, cart: [...filteredCart] };
   }
@@ -74,6 +97,7 @@ const reducer = (
   }
 
   if (action.type === REDUCER_ACTION_TYPE.SUBMIT) {
+    localStorage.setItem('timbu-cart', JSON.stringify([]));
     return { ...state, cart: [] };
   }
 

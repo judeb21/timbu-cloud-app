@@ -11,14 +11,26 @@ import useWishlist from "../../hooks/useWishlist";
 import { useEffect } from "react";
 
 function Navigation() {
-  const { totalItems } = useCart();
+  const { dispatch, REDUCER_ACTIONS, totalItems } = useCart();
   const { remit, WISHLIST_REDUCER_ACTIONS, totalWishlistItems } = useWishlist();
 
-  useEffect(() => {
+  const persistWishList = () => {
     remit({
-      type: WISHLIST_REDUCER_ACTIONS.REFRESH
+      type: WISHLIST_REDUCER_ACTIONS.REFRESH,
     });
-  }, [])
+  };
+
+  const persistCart = () => {
+    dispatch({
+      type: REDUCER_ACTIONS.REFRESH,
+    });
+  }
+
+  useEffect(() => {
+    persistCart();
+    persistWishList();
+  }, []);
+
   return (
     <>
       <div className="top--navigation">
