@@ -2,7 +2,6 @@ import { ReducerAction, ReducerActionType } from "../../context/CartProvider";
 import currencyFormatter from "../../helpers/currencyFormatter";
 import DeleteIcon from "../../assets/icons/cart-delete-icon.svg";
 import RightCaret from "../../assets/icons/right-caret-input-icon.svg";
-import BlackColor from "../../assets/icons/black-color-icon.svg";
 import { ChangeEvent, Dispatch, ReactElement } from "react";
 import { ProductDetailType } from "../../types/productInterface";
 
@@ -82,7 +81,6 @@ const CartItem = ({ item, dispatch, REDUCER_ACTIONS }: PropsType) => {
             {/* Color Select */}
             <div className="product--cart__color">
               <div className="product--cart__color-preview">
-                <img src={BlackColor} alt="color variation" />
                 <div className={`color ${item.color}`}></div>
               </div>
               <img src={RightCaret} alt="right caret" />
