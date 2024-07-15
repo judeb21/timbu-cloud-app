@@ -62,6 +62,7 @@ export interface ProductType {
   buying_price: number | string;
   extra_infos: [];
   quantity?: number;
+  color?: string;
 }
 
 export interface ProductListArray {
@@ -103,4 +104,5 @@ export interface ProductDetailType {
   buying_price: number | string;
   extra_infos: [];
   quantity?: number;
+  color?: string;
 }
