@@ -8,6 +8,7 @@ const initWishlistState: WishlistStateType = { wishlist: [] };
 const REDUCER_ACTION_TYPE = {
   ADD: "ADD",
   REMOVE: "REMOVE",
+  REFRESH: "REFRESH",
 };
 
 export type ReducerActionType = typeof REDUCER_ACTION_TYPE;
@@ -21,11 +22,26 @@ const reducer = (
   state: WishlistStateType,
   action: ReducerAction
 ): WishlistStateType => {
+  if (action.type === REDUCER_ACTION_TYPE.REFRESH) {
+    const localWishlistStr = localStorage.getItem("timbu-wishlist");
+    const localWishlist: ProductType[] = JSON.parse(localWishlistStr as string);
+
+    if (localWishlist !== null) {
+      const list: ProductType[] = localWishlist;
+
+      return {
+        ...state,
+        wishlist: [...list],
+      };
+    }
+  }
+
   if (action.type === REDUCER_ACTION_TYPE.ADD) {
     if (!action.payload) throw new Error("payload is mission in ADD action");
 
     const list: ProductType[] = state.wishlist;
     list.push(action.payload);
+    localStorage.setItem('timbu-wishlist', JSON.stringify(list));
 
     return {
       ...state,
@@ -41,6 +57,8 @@ const reducer = (
     const filteredList: ProductType[] = state.wishlist.filter(
       (item) => item.id !== id
     );
+
+    localStorage.setItem('timbu-wishlist', JSON.stringify(filteredList));
 
     return { ...state, wishlist: [...filteredList] };
   }

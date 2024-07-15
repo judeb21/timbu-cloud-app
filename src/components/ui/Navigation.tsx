@@ -8,10 +8,17 @@ import CartIconNone from "../../assets/icons/no-cart-item-icon.svg";
 import SearchIcon from "../../assets/icons/search-icon.svg";
 import useCart from "../../hooks/useCart";
 import useWishlist from "../../hooks/useWishlist";
+import { useEffect } from "react";
 
 function Navigation() {
   const { totalItems } = useCart();
-  const {totalWishlistItems} = useWishlist();
+  const { remit, WISHLIST_REDUCER_ACTIONS, totalWishlistItems } = useWishlist();
+
+  useEffect(() => {
+    remit({
+      type: WISHLIST_REDUCER_ACTIONS.REFRESH
+    });
+  }, [])
   return (
     <>
       <div className="top--navigation">
