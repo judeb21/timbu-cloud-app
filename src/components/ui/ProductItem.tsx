@@ -6,10 +6,9 @@ import useWishlist from "../../hooks/useWishlist";
 
 type PropsType = {
   product: ProductDetailType;
-  key: number;
 };
 
-const ProductItem = ({ product, key }: PropsType) => {
+const ProductItem = ({ product }: PropsType) => {
   const { products } = useProducts();
   const { remit, WISHLIST_REDUCER_ACTIONS, wishlist } = useWishlist();
 
@@ -46,7 +45,7 @@ const ProductItem = ({ product, key }: PropsType) => {
 
   return (
     <>
-      <article className="product--card" key={key}>
+      <article className="product--card">
         <div className="product--card__article">
           <NavLink
             to={`/product-details/${product?.id}`}
